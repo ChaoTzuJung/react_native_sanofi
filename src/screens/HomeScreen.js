@@ -1,6 +1,8 @@
 import React, { Framgent } from 'react';
 import { View, ScrollView, Text, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
+
+import LogoTitle from '../components/Common/LogoTitle';
 import Banner from '../components/Common/Banner';
 import Button from '../components/Common/Button';
 import BodySection from '../components/Common/BodySection';
@@ -11,13 +13,13 @@ import { bodyData } from '../models/body';
 
 const TabItem = props => <View {...props} />;
 
-const HomeScreen = () => (
+const HomeScreen = ({ navigation }) => (
     <ScrollView>
         <Banner>
             <View style={{ paddingVertical: 20, paddingHorizontal: 40 }}>
                 <BannerHeader>EASI<Text style={{ fontFamily: 'ITCAvantGardeProMd' }}>score</Text></BannerHeader>
                 <BannerText>Quickly calculate the eczema area and severity index to determine atopic dermatitis severity.</BannerText>
-                <Button size="large">Start</Button>
+                <Button size="large" navigation={navigation}>Start</Button>
             </View>
         </Banner>
         <Section>
@@ -87,7 +89,15 @@ const HomeScreen = () => (
         </Section>
         <Footer />
     </ScrollView>
-);
+)
+
+HomeScreen.navigationOptions = ({ navigation }) => {
+    const params = navigation.state.params || {};
+
+    return {
+        headerTitle: () => <LogoTitle />,
+    };
+};
 
 
 const BannerHeader = styled.Text`

@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, ImageBackground, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
-const Button = ({ children, onClick, size }) => {
+const Button = ({ children, onClick, size, navigation }) => {
     const [coords, setCoords] = React.useState({ x: -1, y: -1 });
     const [isRippling, setIsRippling] = React.useState(false);
 
@@ -25,12 +25,13 @@ const Button = ({ children, onClick, size }) => {
 
     return (
         <ButtonContainer
-            onClick={e => {
-                var rect = e.target.getBoundingClientRect();
-                var x = e.clientX - rect.left;
-                var y = e.clientY - rect.top;
-                setCoords({ x, y });
+            onPress={e => {
+                // var rect = e.target.getBoundingClientRect();
+                // var x = e.clientX - rect.left;
+                // var y = e.clientY - rect.top;
+                // setCoords({ x, y });
                 onClick && onClick(e);
+                navigation.navigate('Calculator');
             }}
         >
             {isRippling ? (

@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import Logo from '../../../assets/logo.svg';
 import SubLogo from '../../../assets/sub-logo.svg';
 
-const Header = () => (
+const LogoTitle = () => (
     <HeaderContainer>
         <Logo />
         <HorizonLine />
@@ -17,10 +17,10 @@ const HeaderContainer = styled.View`
     justify-content: center;
     align-items: center;
 	width: 100%;
-	height: 48px;
-	padding: 17px 20px;
-    margin-top: 33px;
+	height: auto;
+	padding: 16px 0 20px 0;
 	background-color: ${props => props.theme.white};
+    /* border: 1px solid red; */
 `;
 
 const HorizonLine = styled.View`
@@ -30,4 +30,4 @@ const HorizonLine = styled.View`
     margin: 0 10px;
 `;
 
-export default Header;
+export default LogoTitle;

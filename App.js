@@ -5,12 +5,11 @@ import styled, { ThemeProvider } from 'styled-components';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 
-import Header from './src/components/Common/Header';
-
 import HomeScreen from './src/screens/HomeScreen';
-import CaculatorScreen from './src/screens/CaculatorScreen';
+import CalculatorScreen from './src/screens/CalculatorScreen';
 import PatientScreen from './src/screens/PatientScreen';
 import ReportScreen from './src/screens/ReportScreen';
+import ModalScreen from './src/screens/ModalScreen';
 
 const fetchFonts = async () => (
   await Font.loadAsync({
@@ -21,26 +20,6 @@ const fetchFonts = async () => (
     'ITCAvantGardeProBoldItalic': require('./assets/fonts/ITCAvantGardePro-Bold-italic.otf'),
   })
 );
-
-const Navigation = createStackNavigator(
-  {
-    Home: HomeScreen,
-    Caculator: CaculatorScreen,
-    Patient: PatientScreen,
-    Report: ReportScreen,
-  },
-  {
-    InitalRouteName: 'Home',
-    defaultNavigationOptions: {
-      title: 'Sanofi Easiscore'
-    },
-    mode: 'card',
-    headerMode: 'none',
-    keyboardHandlingEnabled: true,
-  }
-)
-
-const App = createAppContainer(Navigation);
 
 const theme = {
   main: "#bcbc1c",
@@ -57,7 +36,56 @@ const theme = {
   lightGreen: "#bcbc1c",
 };
 
-export default () => {
+const MainStack = createStackNavigator(
+  {
+    Home: {
+      screen: HomeScreen,
+    },
+    Calculator: {
+      screen: CalculatorScreen,
+    },
+    Patient: {
+      screen: PatientScreen,
+    },
+    Report: {
+      screen: ReportScreen,
+    },
+  },
+  {
+    initialRouteName: 'Home',
+    defaultNavigationOptions: {
+      // title: 'Sanofi Easiscore',
+      headerStyle: {
+        backgroundColor: '#FFF',
+      },
+      headerTintColor: '#525ca3',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    },
+    mode: 'card',
+    keyboardHandlingEnabled: true,
+  }
+)
+
+const RootStack = createStackNavigator(
+  {
+    Main: {
+      screen: MainStack,
+    },
+    MyModal: {
+      screen: ModalScreen,
+    },
+  },
+  {
+    mode: 'modal',
+    headerMode: 'none',
+  }
+);
+
+const AppContainer = createAppContainer(RootStack);
+
+const App = () => {
   const [assetsLoaded, setAssetsLoaded] = useState(false);
 
   if (!assetsLoaded) {
@@ -72,8 +100,9 @@ export default () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Header />
-      <App />
+      <AppContainer />
     </ThemeProvider>
   )
 };
+
+export default App;
