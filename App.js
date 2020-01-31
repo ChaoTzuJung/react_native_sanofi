@@ -52,7 +52,7 @@ const MainStack = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Calculator',
     defaultNavigationOptions: {
       // title: 'Sanofi Easiscore',
       headerStyle: {
