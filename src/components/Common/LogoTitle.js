@@ -20,7 +20,6 @@ const HeaderContainer = styled.View`
 	height: auto;
 	padding: 16px 0 20px 0;
 	background-color: ${props => props.theme.white};
-    /* border: 1px solid red; */
 `;
 
 const HorizonLine = styled.View`

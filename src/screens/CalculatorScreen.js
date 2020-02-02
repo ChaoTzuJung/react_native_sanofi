@@ -1,50 +1,140 @@
 import React from 'react';
-import { View, ScrollView, Text, TouchableOpacity, Button } from 'react-native';
-import styled from 'styled-components/native';
+import { View, ScrollView, Text, TouchableOpacity, Button, FlatList } from 'react-native';
+import styled, { withTheme }  from 'styled-components/native';
 import LogoTitle from '../components/Common/LogoTitle';
+import Carousel from '../components/Common/Carousel';
 import CustomText from '../components/Common/CustomText';
+import Accordion, { AccordionItem } from '../components/Common/Accordion';
 import Footer from '../components/Common/Footer';
+import RadioCard from '../components/Common/RadioCard';
+
 import NeckBack from '../../assets/neck-back.svg';
 import NeckFront from '../../assets/neck-front.svg'; 
+import Test from '../../assets/Edema_Clear_Skin.jpg'; 
 
-const CalculatorScreen = ({ navigation }) => {
+const DATA = [
+    {
+      id: '1',
+      title: 'Head & Neck',
+      score: 0
+    },
+    {
+      id: '2',
+      title: 'Upper extremities',
+      score: 0
+    },
+    {
+      id: '3',
+      title: 'Trunk',
+      score: 0
+    },
+    {
+        id: '4',
+        title: 'Lower extremities',
+        score: 0
+    },
+    {
+        id: '5',
+        title: 'Result',
+        score: 0
+    },
+];
+
+const AccordionData = {
+    'Erythema': {
+        id: '1',
+        name: 'Erythema',
+        score: 0,
+        data: [
+            {label: 'None', image: require('../../assets/Erythema_Clear_Skin.jpg'), info: null},
+            {label: 'Mild', image: require('../../assets/Erythema_Mild.jpg'), info: 'Faintly detectable, pink'},
+            {label: 'Moderate', image: require('../../assets/Erythema_Moderate.jpg'), info: 'Clearly distinguishable dull red'},
+            {label: 'Severe', image: require('../../assets/Erythema_Severe.jpg'), info: 'Deep dark or fiery bright red'},
+        ],
+    },
+    'Edema / papulation': {
+        id: '2',
+        name: 'Edema / papulation',
+        score: 0,
+        data: [
+            {label: 'None', image: require('../../assets/Edema_Clear_Skin.jpg'), info: null},
+            {label: 'Mild', image: require('../../assets/Edema_Mild.jpg'), info: 'Barely perceptible elevation'},
+            {label: 'Moderate', image: require('../../assets/Edema_Moderate.jpg'), info: 'Clearly perceptible elevation but not prominent'},
+            {label: 'Severe', image: require('../../assets/Edema_Severe.jpg'), info: 'Prominent elevation'},
+        ],
+    },
+    'Excoriation': {
+        id: '3',
+        name: 'Excoriation',
+        score: 0,
+        data: [
+            {label: 'None', image: require('../../assets/Excoriation_Clear_Skin.jpg'), info: null},
+            {label: 'Mild', image: require('../../assets/Excoriation_Mild.jpg'), info: 'Scant'},
+            {label: 'Moderate', image: require('../../assets/Excoriation_Moderate.jpg'), info: 'Many superficial and/or some deep excoriations'},
+            {label: 'Severe', image: require('../../assets/Excoriation_Severe.jpg'), info: 'Extensive superficial and/or many deep excoriations'},
+        ],
+    },
+    'Lichenification': {
+        id: '4',
+        name: 'Lichenification',
+        score: 0,
+        data: [
+            {label: 'None', image: require('../../assets/Lichenification_Clear_Skin.jpg'), info: null },
+            {label: 'Mild', image: require('../../assets/Lichenification_Mild.jpg'), info: 'Scant'},
+            {label: 'Moderate', image: require('../../assets/Lichenification_Moderate.jpg'), info: 'Thickened skin with exaggerated markings and/or some prurigo nodules'},
+            {label: 'Severe', image: require('../../assets/Lichenification_Severe.jpg'), info: 'Prominent thickening, exaggerated markings creating deep furrows and/or many prurigo nodules'},
+        ],
+    }
+}
+const CalculatorScreen = ({ navigation, theme }) => {
     const [isModal, setModal] = React.useState(false);
     const [value, onChangeText] = React.useState('');
     const [areaPoint, setAreaPoint] = React.useState(0);
+    const [bindRadioIndex, setBindRadio] = React.useState(null);
 
     const computedAreaScore = value => {
         onChangeText(value);
+        const score = parseInt(value);
         let timeout;
         if (timeout) clearTimeout(timeout);
+
         // make lazy input
         timeout = setTimeout(() => {
-            if (parseInt(value) >= 90 && parseInt(value) <= 100) setAreaPoint(6);
-            if (parseInt(value) >= 70 && parseInt(value) <= 89) setAreaPoint(5);
-            if (parseInt(value) >= 50 && parseInt(value) <= 69) setAreaPoint(4);
-            if (parseInt(value) >= 30 && parseInt(value) <= 49) setAreaPoint(3);
-            if (parseInt(value) >= 10 && parseInt(value) <= 29) setAreaPoint(2);
-            if (parseInt(value) >= 1 && parseInt(value) <= 9) setAreaPoint(1);
-            if (parseInt(value) == 0) setAreaPoint(0);
-            
-            // 超過 100 / 負數
-            if (parseInt(value) > 100 || parseInt(value) < 0) {
+            if (score >= 90 && score <= 100) setAreaPoint(6);
+            if (score >= 70 && score <= 89) setAreaPoint(5);
+            if (score >= 50 && score <= 69) setAreaPoint(4);
+            if (score >= 30 && score <= 49) setAreaPoint(3);
+            if (score >= 10 && score <= 29) setAreaPoint(2);
+            if (score >= 1 && score <= 9) setAreaPoint(1);
+            if (value == 0) setAreaPoint(0);
+
+            // 超過 100
+            if (score > 100) {
+                onChangeText('');
+                setAreaPoint(0);
+            }
+            // 負數
+            if (score < 0) {
                 onChangeText('');
                 setAreaPoint(0);
             }
 
             // 中文文字 / 奇怪符號
-            if (!Number(value)) {
+            if (!score && score !== 0) {
                 onChangeText('');
                 setAreaPoint(0);
             }
         }, 100);
     };
 
+    const changeRadio = index => setBindRadio(index);
+
     return (
         <ScrollView>
             <View style={{ paddingHorizontal: 20 }}>
-                <ScreenTitle>Caculator</ScreenTitle>
+                <ScreenTitle>Calculator</ScreenTitle>
                 <Description>Determine the severity of atopic dermatitis in each of the four body regions.</Description>
+                <Carousel data={DATA} />
                 <BodySection>
                     <BodyPart>
                         <BodyText>Front</BodyText>
@@ -59,13 +149,39 @@ const CalculatorScreen = ({ navigation }) => {
                     Area score:&nbsp;
                     <CustomText font="normal" size="h5" color="#333333" value={`${areaPoint}.0`} />
                 </SubTitle>
+                <CustomText size="h6" color="#333333" value="%Involvement:" style={{ lineHeight: 24 }}/>
                 <InputArea
                     onChangeText={text => computedAreaScore(text)}
                     value={value}
                 />
+                <CustomText color={theme.brown} value="*Given each respective body region a score between 0 and 6 based on the estimated percentage involment." style={{ lineHeight: 20 }} />
                 <SubTitle>EASI lesion severity atlas</SubTitle>
-                <Button title="Click Here" onPress={() => navigation.navigate('MyModal')}></Button>
             </View>
+            <Accordion defaultIndex={null} onItemClick={console.log}>
+                {
+                    Object.values(AccordionData).map(accordionItem => (
+                        <AccordionItem key={accordionItem.id} label={`${accordionItem.name}: ${accordionItem.score}`} index={accordionItem.id}>
+                        s
+                        </AccordionItem>
+                    ))
+                }
+            </Accordion>
+            <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={AccordionData['Erythema'].data}
+                keyExtractor={item => item.info}
+                renderItem={({ item, index }) => (
+                    <RadioCard 
+                        defaultIndex={index + 1}
+                        label={`${item.label}: ${index}`}
+                        image={item.image}
+                        info={item.info}
+                        isChecked={index + 1 === bindRadioIndex}
+                        changeRadio={changeRadio}
+                    />
+                )}
+            />
             <Footer />
         </ScrollView>
     )
@@ -76,10 +192,9 @@ CalculatorScreen.navigationOptions = ({ navigation }) => {
     const params = navigation.state.params || {};
 
     return {
-        headerTitle: () => <Text style={{ fontFamily: 'ITCAvantGardeProBk', fontSize: 18 }}>Calculator</Text>,
+        headerTitle: () => <CustomText font="normal" size="h6" color="#333333" value="Calculator" />
     };
 };
-
 
 const ScreenTitle = styled.Text`
     margin-top: 40px;
@@ -135,9 +250,9 @@ const SubTitle = styled.Text`
 `
 
 const InputArea = styled.TextInput`
+    margin-bottom: 8px;
     width: 100px;
     height: 40px;
-    width: 100px;
     text-align: center;
     color: #000000;
     font-family: 'Arial';
@@ -145,9 +260,8 @@ const InputArea = styled.TextInput`
     line-height: 32px;
     border: none;
     border-bottom-width: 1px;
-    border-bottom-color: #a77f7f;
+    border-bottom-color: ${props => props.theme.brown};
     opacity: 0.8;
 
 `
-
-export default CalculatorScreen;
+export default withTheme(CalculatorScreen);

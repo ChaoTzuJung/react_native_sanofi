@@ -51,7 +51,7 @@ const FooterHerizon = styled.View`
 	margin-bottom: 20px;
 	width: 100%;
 	height: 1px;
-	background-color: #a77f7f;
+	background-color: ${props => props.theme.brown};
 `
 
 const FooterText = styled.Text`

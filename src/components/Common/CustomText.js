@@ -1,9 +1,8 @@
-
 import React from 'react';
 import styled from 'styled-components/native';
 
-const CustomText = ({ font, size, color, value }) => (
-    <MyText font={font} size={size} color={color}>{value}</MyText>
+const CustomText = ({ font, size, color, value, style }) => (
+    <MyText font={font} size={size} color={color} style={style}>{value}</MyText>
 )
 
 const handleFont = font => {
