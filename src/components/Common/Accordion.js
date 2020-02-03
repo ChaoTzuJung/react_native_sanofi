@@ -6,7 +6,7 @@ import PlusIcon from '../../../assets/plus.svg';
 import MinusIcon from '../../../assets/minus.svg';
 
 export const AccordionItem = (props) => (
-    <View style={{ marginBottom: 20 }}>
+    <AccordionItemWrapper>
         <AccordionButton onPress={() => props.handleClick()}>
             <CircleOrder>
                 <CustomText size="h7" color="#525ca3" value={props.index} />
@@ -17,8 +17,12 @@ export const AccordionItem = (props) => (
         <CollapseContent isCollapsed={props.isCollapsed}>
             {props.children}
         </CollapseContent>
-    </View>
+    </AccordionItemWrapper>
 );
+
+const AccordionItemWrapper = styled.View`
+    margin-bottom: 20px;
+`
 
 const AccordionButton = styled.TouchableOpacity`
     display: flex;
@@ -35,7 +39,7 @@ const AccordionButton = styled.TouchableOpacity`
     background-color: #fff;
 `;
 
-const CollapseContent = styled.Text`
+const CollapseContent = styled.View`
     display: ${props => props.isCollapsed ? 'none' : 'flex'}
     margin: 20px 0;
 `;
@@ -53,10 +57,10 @@ const CircleOrder = styled.View`
     border-color: ${props => props.theme.second};
 `;
 
-  
+
 const Accordion = (props) => {
     const [bindIndex, setBindIndex] = useState(props.defaultIndex);
-  
+
     const changeItem = itemIndex => {
         if (typeof props.onItemClick === 'function') props.onItemClick(itemIndex);
         if (itemIndex !== bindIndex) setBindIndex(itemIndex);
@@ -64,8 +68,6 @@ const Accordion = (props) => {
 
     const items = props.children.filter(item => item.type.name === 'AccordionItem');
 
-    console.log(items)
-  
     return (
         <View>
             {items.map(({ props }) => (

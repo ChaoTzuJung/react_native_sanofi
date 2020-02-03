@@ -8,25 +8,26 @@ import Accordion, { AccordionItem } from '../components/Common/Accordion';
 import Footer from '../components/Common/Footer';
 import RadioCard from '../components/Common/RadioCard';
 
+import { symptomData } from '../models/symptom';
 import NeckBack from '../../assets/neck-back.svg';
 import NeckFront from '../../assets/neck-front.svg'; 
 import Test from '../../assets/Edema_Clear_Skin.jpg'; 
 
 const DATA = [
     {
-      id: '1',
-      title: 'Head & Neck',
-      score: 0
+        id: '1',
+        title: 'Head & Neck',
+        score: 0
     },
     {
-      id: '2',
-      title: 'Upper extremities',
-      score: 0
+        id: '2',
+        title: 'Upper extremities',
+        score: 0
     },
     {
-      id: '3',
-      title: 'Trunk',
-      score: 0
+        id: '3',
+        title: 'Trunk',
+        score: 0
     },
     {
         id: '4',
@@ -40,57 +41,19 @@ const DATA = [
     },
 ];
 
-const AccordionData = {
-    'Erythema': {
-        id: '1',
-        name: 'Erythema',
-        score: 0,
-        data: [
-            {label: 'None', image: require('../../assets/Erythema_Clear_Skin.jpg'), info: null},
-            {label: 'Mild', image: require('../../assets/Erythema_Mild.jpg'), info: 'Faintly detectable, pink'},
-            {label: 'Moderate', image: require('../../assets/Erythema_Moderate.jpg'), info: 'Clearly distinguishable dull red'},
-            {label: 'Severe', image: require('../../assets/Erythema_Severe.jpg'), info: 'Deep dark or fiery bright red'},
-        ],
-    },
-    'Edema / papulation': {
-        id: '2',
-        name: 'Edema / papulation',
-        score: 0,
-        data: [
-            {label: 'None', image: require('../../assets/Edema_Clear_Skin.jpg'), info: null},
-            {label: 'Mild', image: require('../../assets/Edema_Mild.jpg'), info: 'Barely perceptible elevation'},
-            {label: 'Moderate', image: require('../../assets/Edema_Moderate.jpg'), info: 'Clearly perceptible elevation but not prominent'},
-            {label: 'Severe', image: require('../../assets/Edema_Severe.jpg'), info: 'Prominent elevation'},
-        ],
-    },
-    'Excoriation': {
-        id: '3',
-        name: 'Excoriation',
-        score: 0,
-        data: [
-            {label: 'None', image: require('../../assets/Excoriation_Clear_Skin.jpg'), info: null},
-            {label: 'Mild', image: require('../../assets/Excoriation_Mild.jpg'), info: 'Scant'},
-            {label: 'Moderate', image: require('../../assets/Excoriation_Moderate.jpg'), info: 'Many superficial and/or some deep excoriations'},
-            {label: 'Severe', image: require('../../assets/Excoriation_Severe.jpg'), info: 'Extensive superficial and/or many deep excoriations'},
-        ],
-    },
-    'Lichenification': {
-        id: '4',
-        name: 'Lichenification',
-        score: 0,
-        data: [
-            {label: 'None', image: require('../../assets/Lichenification_Clear_Skin.jpg'), info: null },
-            {label: 'Mild', image: require('../../assets/Lichenification_Mild.jpg'), info: 'Scant'},
-            {label: 'Moderate', image: require('../../assets/Lichenification_Moderate.jpg'), info: 'Thickened skin with exaggerated markings and/or some prurigo nodules'},
-            {label: 'Severe', image: require('../../assets/Lichenification_Severe.jpg'), info: 'Prominent thickening, exaggerated markings creating deep furrows and/or many prurigo nodules'},
-        ],
-    }
-}
 const CalculatorScreen = ({ navigation, theme }) => {
     const [isModal, setModal] = React.useState(false);
     const [value, onChangeText] = React.useState('');
     const [areaPoint, setAreaPoint] = React.useState(0);
     const [bindRadioIndex, setBindRadio] = React.useState(null);
+    const [score, setSymptomScore] = React.useState({
+        Erythema: 0,
+        'Edema / papulation': 0,
+        Excoriation: 0,
+        Lichenification: 0,
+    });
+
+    console.log('[state] score: ', score);
 
     const computedAreaScore = value => {
         onChangeText(value);
@@ -127,7 +90,16 @@ const CalculatorScreen = ({ navigation, theme }) => {
         }, 100);
     };
 
-    const changeRadio = index => setBindRadio(index);
+    const changeRadio = (name, index) => {
+        console.log('changeRadio index', index);
+        console.log('changeRadio name', name);
+
+        setBindRadio(index);
+        setSymptomScore(() => ({
+            ...score,
+            [name]: index,
+        }))
+    };
 
     return (
         <ScrollView>
@@ -157,31 +129,30 @@ const CalculatorScreen = ({ navigation, theme }) => {
                 <CustomText color={theme.brown} value="*Given each respective body region a score between 0 and 6 based on the estimated percentage involment." style={{ lineHeight: 20 }} />
                 <SubTitle>EASI lesion severity atlas</SubTitle>
             </View>
-            <Accordion defaultIndex={null} onItemClick={console.log}>
+            <Accordion defaultIndex="1" onItemClick={console.log}>
                 {
-                    Object.values(AccordionData).map(accordionItem => (
-                        <AccordionItem key={accordionItem.id} label={`${accordionItem.name}: ${accordionItem.score}`} index={accordionItem.id}>
-                        s
+                    symptomData.map(accordionItem => (
+                        <AccordionItem key={accordionItem.id} label={`${accordionItem.name}: ${score[accordionItem.name]}`} index={accordionItem.id}>
+                            <FlatList
+                                horizontal
+                                showsHorizontalScrollIndicator={false}
+                                data={accordionItem.data}
+                                keyExtractor={item => item.info}
+                                renderItem={({ item, index }) => (
+                                    <RadioCard 
+                                        defaultIndex={index + 1}
+                                        label={`${item.label}: ${index}`}
+                                        image={item.image}
+                                        info={item.info}
+                                        isChecked={index + 1 === bindRadioIndex}
+                                        changeRadio={() => changeRadio(accordionItem.name, index)}
+                                    />
+                                )}
+                            />
                         </AccordionItem>
                     ))
                 }
             </Accordion>
-            <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={AccordionData['Erythema'].data}
-                keyExtractor={item => item.info}
-                renderItem={({ item, index }) => (
-                    <RadioCard 
-                        defaultIndex={index + 1}
-                        label={`${item.label}: ${index}`}
-                        image={item.image}
-                        info={item.info}
-                        isChecked={index + 1 === bindRadioIndex}
-                        changeRadio={changeRadio}
-                    />
-                )}
-            />
             <Footer />
         </ScrollView>
     )
