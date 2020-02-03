@@ -8,7 +8,7 @@ import Radio from './Radio';
 import ResizeIcon from '../../../assets/resize.svg';
 import InfoIcon from '../../../assets/info.svg';
 
-const RadioCard = ({ defaultIndex, image, label, imageWidth = '300px', isChecked = false, changeRadio }) => {
+const RadioCard = ({ defaultIndex, defaultsymptom, image, label, imageWidth = '300px', isChecked = false, changeRadio }) => {
     const [radioCheck, setRadioCheck] = useState(false);
 
     return (
@@ -20,6 +20,7 @@ const RadioCard = ({ defaultIndex, image, label, imageWidth = '300px', isChecked
             <RadioCardBottom>
                 <Radio
                     index={defaultIndex}
+                    symptom={defaultsymptom}
                     size="24"
                     color="main"
                     style={{ marginRight: 12 }}

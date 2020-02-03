@@ -46,14 +46,14 @@ const CalculatorScreen = ({ navigation, theme }) => {
     const [value, onChangeText] = React.useState('');
     const [areaPoint, setAreaPoint] = React.useState(0);
     const [bindRadioIndex, setBindRadio] = React.useState(null);
+    const [bindRadioSymptom, setBindSymptom] = React.useState(null);
+
     const [score, setSymptomScore] = React.useState({
         Erythema: 0,
         'Edema / papulation': 0,
         Excoriation: 0,
         Lichenification: 0,
     });
-
-    console.log('[state] score: ', score);
 
     const computedAreaScore = value => {
         onChangeText(value);
@@ -91,10 +91,8 @@ const CalculatorScreen = ({ navigation, theme }) => {
     };
 
     const changeRadio = (name, index) => {
-        console.log('changeRadio index', index);
-        console.log('changeRadio name', name);
-
         setBindRadio(index);
+        setBindSymptom(name)
         setSymptomScore(() => ({
             ...score,
             [name]: index,
@@ -129,7 +127,7 @@ const CalculatorScreen = ({ navigation, theme }) => {
                 <CustomText color={theme.brown} value="*Given each respective body region a score between 0 and 6 based on the estimated percentage involment." style={{ lineHeight: 20 }} />
                 <SubTitle>EASI lesion severity atlas</SubTitle>
             </View>
-            <Accordion defaultIndex="1" onItemClick={console.log}>
+            <Accordion defaultIndex={null} onItemClick={console.log}>
                 {
                     symptomData.map(accordionItem => (
                         <AccordionItem key={accordionItem.id} label={`${accordionItem.name}: ${score[accordionItem.name]}`} index={accordionItem.id}>
@@ -141,10 +139,11 @@ const CalculatorScreen = ({ navigation, theme }) => {
                                 renderItem={({ item, index }) => (
                                     <RadioCard 
                                         defaultIndex={index + 1}
+                                        defaultsymptom={accordionItem.name}
                                         label={`${item.label}: ${index}`}
                                         image={item.image}
                                         info={item.info}
-                                        isChecked={index + 1 === bindRadioIndex}
+                                        isChecked={index === bindRadioIndex && accordionItem.name === bindRadioSymptom}
                                         changeRadio={() => changeRadio(accordionItem.name, index)}
                                     />
                                 )}

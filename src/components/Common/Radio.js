@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { withTheme }  from 'styled-components/native';
 
 import CheckedMainIcon from '../../../assets/checked-main.svg';
 import CheckedSecondIcon from '../../../assets/checked-second.svg';
 
-const Radio = ({ index, size, color, style, isChecked, changeRadio }) => {
-
+const Radio = ({ index, symptom, size, color, style, isChecked = false, changeRadio }) => {
     // TODO: 有什麼好作法?
-    const [selected, setRadioSelected] = useState(false);
+    // const [selected, setRadioSelected] = useState(false);
+    console.log('mount:', isChecked);
 
-    const RadioClickHandler = () => {
-        setRadioSelected(true);
-        changeRadio(index)
-    }
+    // useEffect(() => {
+    //     setRadioSelected(true);
+    //  }, [isChecked]);
 
     return (
         <RadioButton 
@@ -20,7 +19,7 @@ const Radio = ({ index, size, color, style, isChecked, changeRadio }) => {
             color={color}
             selected={isChecked}
             style={style}
-            onPress={RadioClickHandler}
+            onPress={() => changeRadio(symptom, index)}
         >
             {
                 color === 'main' && isChecked ? <CheckedMainIcon />
