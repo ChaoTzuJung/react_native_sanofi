@@ -102,6 +102,7 @@ const TabMenuHorizontal = styled.ScrollView.attrs({
       }
     },
 })`
+    padding-left: 10px;
 `
 
 const TabItem = styled.TouchableOpacity`
