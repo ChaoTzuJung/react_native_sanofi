@@ -78,7 +78,6 @@ const CalculatorScreen = ({ navigation, theme, patient, patientTest }) => {
             <ScreenTitle>Calculator</ScreenTitle>
             <Description>Determine the severity of atopic dermatitis in each of the four body regions.</Description>
             <Carousel data={tabData} render={props => (
-                <LogoTitle />
                 // <View> 
                 //     <View style={{ paddingHorizontal: 20 }}>
                 //         <BodySection>
