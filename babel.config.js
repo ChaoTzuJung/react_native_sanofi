@@ -11,6 +11,9 @@ module.exports = function(api) {
             screens: './src/screens',
             components: './src/components',
             models: './src/models',
+            reducers: './src/reducers',
+            actions: './src/actions',
+            store: './src/store',
           }
       }]
     ]

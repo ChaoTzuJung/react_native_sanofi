@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import React, { useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
+import { Provider } from 'react-redux';
+import configureStore from '@/store';
+import { AppContainer } from '@/screens';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
-
-import HomeScreen from 'screens/HomeScreen';
-import CalculatorScreen from 'screens/CalculatorScreen';
-import PatientScreen from 'screens/PatientScreen';
-import ReportScreen from 'screens/ReportScreen';
-import ModalScreen from 'screens/ModalScreen';
 
 const fetchFonts = async () => (
   await Font.loadAsync({
@@ -37,57 +32,11 @@ const theme = {
   lightGreen: "#bcbc1c",
 };
 
-const MainStack = createStackNavigator(
-  {
-    Home: {
-      screen: HomeScreen,
-    },
-    Calculator: {
-      screen: CalculatorScreen,
-    },
-    Patient: {
-      screen: PatientScreen,
-    },
-    Report: {
-      screen: ReportScreen,
-    },
-  },
-  {
-    initialRouteName: 'Home',
-    defaultNavigationOptions: {
-      // title: 'Sanofi Easiscore',
-      headerStyle: {
-        backgroundColor: '#FFF',
-      },
-      headerTintColor: '#525ca3',
-      headerTitleStyle: {
-        fontWeight: 'bold',
-      },
-    },
-    mode: 'card',
-    keyboardHandlingEnabled: true,
-  }
-)
-
-const RootStack = createStackNavigator(
-  {
-    Main: {
-      screen: MainStack,
-    },
-    MyModal: {
-      screen: ModalScreen,
-    },
-  },
-  {
-    mode: 'modal',
-    headerMode: 'none',
-  }
-);
-
-const AppContainer = createAppContainer(RootStack);
+const store = configureStore({});
 
 const App = () => {
   const [assetsLoaded, setAssetsLoaded] = useState(false);
+  
 
   if (!assetsLoaded) {
     return (
@@ -100,9 +49,11 @@ const App = () => {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <AppContainer />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <AppContainer />
+      </ThemeProvider>
+    </Provider>
   )
 };
 

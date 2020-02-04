@@ -1,11 +1,11 @@
-const path = require('path');
+// const path = require('path');
 
-module.exports = {
-    resolve: {
-        extensions: ['.js', '.jsx'],
-        alias: {
-            "@": path.resolve(__dirname, "./src"),
-            "assets": path.resolve(__dirname, "assets/"),
-        }
-    }
-};
+// module.exports = {
+//     resolve: {
+//         extensions: ['.js', '.jsx'],
+//         alias: {
+//             "@": path.resolve(__dirname, "./src"),
+//             "assets": path.resolve(__dirname, "assets/"),
+//         }
+//     }
+// };

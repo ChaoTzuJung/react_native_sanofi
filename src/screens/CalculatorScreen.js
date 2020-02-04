@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, ScrollView, Text, TouchableOpacity, Button, FlatList } from 'react-native';
 import styled, { withTheme }  from 'styled-components/native';
+import { connect } from 'react-redux';
 import LogoTitle from 'components/Common/LogoTitle';
 import Carousel from 'components/Common/Carousel';
 import CustomText from 'components/Common/CustomText';
@@ -11,6 +12,8 @@ import RadioCard from 'components/Common/RadioCard';
 import { symptomData } from 'models/symptom';
 import NeckBack from 'assets/neck-back.svg';
 import NeckFront from 'assets/neck-front.svg'; 
+
+import { patientAction } from '@/actions/patient';
 
 const DATA = [
     {
@@ -40,7 +43,7 @@ const DATA = [
     },
 ];
 
-const CalculatorScreen = ({ navigation, theme }) => {
+const CalculatorScreen = ({ navigation, theme, patient, patientTest }) => {
     const [isModal, setModal] = React.useState(false);
     const [value, onChangeText] = React.useState('');
     const [areaPoint, setAreaPoint] = React.useState(0);
@@ -90,6 +93,7 @@ const CalculatorScreen = ({ navigation, theme }) => {
     };
 
     const changeRadio = (name, index) => {
+        patientTest();
         setBindRadio(index);
         setBindSymptom(name)
         setSymptomScore(() => ({
@@ -233,4 +237,13 @@ const InputArea = styled.TextInput`
     opacity: 0.8;
 
 `
-export default withTheme(CalculatorScreen);
+
+const mapStateToProps = ({ patient }) => ({
+	patient,
+});
+
+const mapDispatchToProps = dispatch => ({
+	patientTest: () => dispatch(patientAction()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withTheme(CalculatorScreen));
