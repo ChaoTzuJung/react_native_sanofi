@@ -35,6 +35,7 @@
     "babel-preset-expo": "^8.0.0",
     "metro": "^0.58.0",
     "metro-core": "^0.58.0",
-    "metro-react-native-babel-preset": "^0.58.0"
+    "metro-react-native-babel-preset": "^0.58.0",
+    "remote-redux-devtools": "^0.5.16"
   }
 }

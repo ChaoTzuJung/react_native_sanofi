@@ -9,39 +9,12 @@ import Accordion, { AccordionItem } from 'components/Common/Accordion';
 import Footer from 'components/Common/Footer';
 import RadioCard from 'components/Common/RadioCard';
 
-import { symptomData } from 'models/symptom';
+import { symptomData, tabData } from 'models/calculator';
 import NeckBack from 'assets/neck-back.svg';
 import NeckFront from 'assets/neck-front.svg'; 
 
-import { patientAction } from '@/actions/patient';
+import { patientAction } from 'actions/patient';
 
-const DATA = [
-    {
-        id: '1',
-        title: 'Head & Neck',
-        score: 0
-    },
-    {
-        id: '2',
-        title: 'Upper extremities',
-        score: 0
-    },
-    {
-        id: '3',
-        title: 'Trunk',
-        score: 0
-    },
-    {
-        id: '4',
-        title: 'Lower extremities',
-        score: 0
-    },
-    {
-        id: '5',
-        title: 'Result',
-        score: 0
-    },
-];
 
 const CalculatorScreen = ({ navigation, theme, patient, patientTest }) => {
     const [isModal, setModal] = React.useState(false);
@@ -107,7 +80,7 @@ const CalculatorScreen = ({ navigation, theme, patient, patientTest }) => {
             <View style={{ paddingHorizontal: 20 }}>
                 <ScreenTitle>Calculator</ScreenTitle>
                 <Description>Determine the severity of atopic dermatitis in each of the four body regions.</Description>
-                <Carousel data={DATA} />
+                <Carousel data={tabData} />
                 <BodySection>
                     <BodyPart>
                         <BodyText>Front</BodyText>

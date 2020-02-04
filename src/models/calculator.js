@@ -44,3 +44,31 @@ export const symptomData = [
         ],
     }
 ]
+
+export const tabData = [
+    {
+        id: '1',
+        title: 'Head & Neck',
+        score: 0
+    },
+    {
+        id: '2',
+        title: 'Upper extremities',
+        score: 0
+    },
+    {
+        id: '3',
+        title: 'Trunk',
+        score: 0
+    },
+    {
+        id: '4',
+        title: 'Lower extremities',
+        score: 0
+    },
+    {
+        id: '5',
+        title: 'Result',
+        score: 0
+    },
+];

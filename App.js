@@ -36,7 +36,6 @@ const store = configureStore({});
 
 const App = () => {
   const [assetsLoaded, setAssetsLoaded] = useState(false);
-  
 
   if (!assetsLoaded) {
     return (
