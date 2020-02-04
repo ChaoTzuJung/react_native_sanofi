@@ -3,7 +3,7 @@ import { ImageBackground, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
 const Banner = ({ children }) => (
-    <ImageBackground source={require('../../../assets/banner.png')} style={styles.bannerStyle}>
+    <ImageBackground source={require('assets/banner.png')} style={styles.bannerStyle}>
         {children}
     </ImageBackground>
 );

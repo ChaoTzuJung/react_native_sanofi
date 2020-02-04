@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import Logo from '../../../assets/logo.svg';
-import SubLogo from '../../../assets/sub-logo.svg';
+import Logo from 'assets/logo.svg';
+import SubLogo from 'assets/sub-logo.svg';
 
 const LogoTitle = () => (
     <HeaderContainer>

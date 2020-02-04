@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, View, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
-import CustomText from './CustomText';
+import CustomText from 'components/Common/CustomText';
 
 const Tabs = props => {
     const [bindIndex, setBindIndex] = React.useState(props.defaultIndex);

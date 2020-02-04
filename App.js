@@ -5,19 +5,19 @@ import styled, { ThemeProvider } from 'styled-components';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 
-import HomeScreen from './src/screens/HomeScreen';
-import CalculatorScreen from './src/screens/CalculatorScreen';
-import PatientScreen from './src/screens/PatientScreen';
-import ReportScreen from './src/screens/ReportScreen';
-import ModalScreen from './src/screens/ModalScreen';
+import HomeScreen from 'screens/HomeScreen';
+import CalculatorScreen from 'screens/CalculatorScreen';
+import PatientScreen from 'screens/PatientScreen';
+import ReportScreen from 'screens/ReportScreen';
+import ModalScreen from 'screens/ModalScreen';
 
 const fetchFonts = async () => (
   await Font.loadAsync({
-    'ITCAvantGardeProBk': require('./assets/fonts/ITCAvantGardePro-Bk.otf'),
-    'ITCAvantGardeProMd': require('./assets/fonts/ITCAvantGardePro-Md.otf'),
-    'ITCAvantGardeProBold': require('./assets/fonts/ITCAvantGardePro-Bold.otf'),
-    'ITCAvantGardeProBkItalic': require('./assets/fonts/ITCAvantGardePro-Bk-italic.otf'),
-    'ITCAvantGardeProBoldItalic': require('./assets/fonts/ITCAvantGardePro-Bold-italic.otf'),
+    'ITCAvantGardeProBk': require('assets/fonts/ITCAvantGardePro-Bk.otf'),
+    'ITCAvantGardeProMd': require('assets/fonts/ITCAvantGardePro-Md.otf'),
+    'ITCAvantGardeProBold': require('assets/fonts/ITCAvantGardePro-Bold.otf'),
+    'ITCAvantGardeProBkItalic': require('assets/fonts/ITCAvantGardePro-Bk-italic.otf'),
+    'ITCAvantGardeProBoldItalic': require('assets/fonts/ITCAvantGardePro-Bold-italic.otf'),
   })
 );
 
@@ -53,7 +53,7 @@ const MainStack = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'Calculator',
+    initialRouteName: 'Home',
     defaultNavigationOptions: {
       // title: 'Sanofi Easiscore',
       headerStyle: {

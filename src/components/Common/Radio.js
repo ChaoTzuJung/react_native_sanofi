@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styled, { withTheme }  from 'styled-components/native';
 
-import CheckedMainIcon from '../../../assets/checked-main.svg';
-import CheckedSecondIcon from '../../../assets/checked-second.svg';
+import CheckedMainIcon from 'assets/checked-main.svg';
+import CheckedSecondIcon from 'assets/checked-second.svg';
 
 const Radio = ({ index, symptom, size, color, style, isChecked = false, changeRadio }) => {
     // TODO: 有什麼好作法?
     // const [selected, setRadioSelected] = useState(false);
-    console.log('mount:', isChecked);
 
     // useEffect(() => {
     //     setRadioSelected(true);

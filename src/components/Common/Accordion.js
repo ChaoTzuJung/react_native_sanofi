@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, ScrollView, Text, Button } from 'react-native';
 import styled, { withTheme }  from 'styled-components/native';
-import CustomText from './CustomText';
-import PlusIcon from '../../../assets/plus.svg';
-import MinusIcon from '../../../assets/minus.svg';
+import CustomText from 'components/Common/CustomText';
+import PlusIcon from 'assets/plus.svg';
+import MinusIcon from 'assets/minus.svg';
 
 export const AccordionItem = (props) => (
     <AccordionItemWrapper>

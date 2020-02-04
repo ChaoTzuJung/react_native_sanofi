@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 // import { withNavigation } from 'react-navigation';
 
-import Tabs from './Tabs';
+import Tabs from 'components/Common/Tabs';
 
 const TabItem = props => <View {...props} />;
 

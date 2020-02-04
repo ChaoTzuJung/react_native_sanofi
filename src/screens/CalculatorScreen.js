@@ -1,17 +1,16 @@
 import React from 'react';
 import { View, ScrollView, Text, TouchableOpacity, Button, FlatList } from 'react-native';
 import styled, { withTheme }  from 'styled-components/native';
-import LogoTitle from '../components/Common/LogoTitle';
-import Carousel from '../components/Common/Carousel';
-import CustomText from '../components/Common/CustomText';
-import Accordion, { AccordionItem } from '../components/Common/Accordion';
-import Footer from '../components/Common/Footer';
-import RadioCard from '../components/Common/RadioCard';
+import LogoTitle from 'components/Common/LogoTitle';
+import Carousel from 'components/Common/Carousel';
+import CustomText from 'components/Common/CustomText';
+import Accordion, { AccordionItem } from 'components/Common/Accordion';
+import Footer from 'components/Common/Footer';
+import RadioCard from 'components/Common/RadioCard';
 
-import { symptomData } from '../models/symptom';
-import NeckBack from '../../assets/neck-back.svg';
-import NeckFront from '../../assets/neck-front.svg'; 
-import Test from '../../assets/Edema_Clear_Skin.jpg'; 
+import { symptomData } from 'models/symptom';
+import NeckBack from 'assets/neck-back.svg';
+import NeckFront from 'assets/neck-front.svg'; 
 
 const DATA = [
     {

@@ -2,14 +2,14 @@ import React, { Framgent } from 'react';
 import { View, ScrollView, Text, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 
-import LogoTitle from '../components/Common/LogoTitle';
-import Banner from '../components/Common/Banner';
-import Button from '../components/Common/Button';
-import BodySection from '../components/Common/BodySection';
-import Tabs from '../components/Common/Tabs';
-import Footer from '../components/Common/Footer';
+import LogoTitle from 'components/Common/LogoTitle';
+import Banner from 'components/Common/Banner';
+import Button from 'components/Common/Button';
+import BodySection from 'components/Common/BodySection';
+import Tabs from 'components/Common/Tabs';
+import Footer from 'components/Common/Footer';
 
-import { bodyData } from '../models/body';
+import { bodyData } from 'models/body';
 
 const TabItem = props => <View {...props} />;
 

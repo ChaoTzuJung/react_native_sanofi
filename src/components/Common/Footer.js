@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { Text } from 'react-native';
 import styled from 'styled-components/native';
-import Collapse from './Collapse';
-import LogoFooter from '../../../assets/footer-logo-sm.svg';
+import Collapse from 'components/Common/Collapse';
+import LogoFooter from 'assets/footer-logo-sm.svg';
 
 const data = [
 	{

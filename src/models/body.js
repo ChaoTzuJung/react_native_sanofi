@@ -1,14 +1,14 @@
-import FrontHead from '../../assets/front-head-sm.svg';
-import BackHead from '../../assets/back-head-sm.svg';
+import FrontHead from 'assets/front-head-sm.svg';
+import BackHead from 'assets/back-head-sm.svg';
 
-import FrontUpper from '../../assets/front-upper-sm.svg';
-import BackUpper from '../../assets/back-upper-sm.svg';
+import FrontUpper from 'assets/front-upper-sm.svg';
+import BackUpper from 'assets/back-upper-sm.svg';
 
-import FrontTrunk from '../../assets/front-trunk-sm.svg';
-import BackTrunk from '../../assets/back-trunk-sm.svg';
+import FrontTrunk from 'assets/front-trunk-sm.svg';
+import BackTrunk from 'assets/back-trunk-sm.svg';
 
-import FrontLower from '../../assets/front-lower-sm.svg';
-import BackLower from '../../assets/back-lower-sm.svg';
+import FrontLower from 'assets/front-lower-sm.svg';
+import BackLower from 'assets/back-lower-sm.svg';
 
 export const bodyData = {
     'Head & Neck': [
