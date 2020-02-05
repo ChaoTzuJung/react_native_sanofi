@@ -8,8 +8,8 @@ const Radio = ({ index, label, value, size, color, style, onRadioChange }) => {
     // TODO: 有什麼好作法?
     const [checked, setRadioChecked] = useState(value);
     const handleRadioPress = () => {
-       onRadioChange(index);
-       setRadioChecked(index);
+        onRadioChange(index);
+        setRadioChecked(index);
     }
 
     return (

@@ -4,15 +4,16 @@ import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import RadioCard from 'components/Common/RadioCard';
 
-const RadioCardList = ({ listData, currentScore, onChangeRadioCardList }) => {
+import { getScrollPosition } from 'actions/calculator';
+
+const RadioCardList = ({ listData, currentScore, onChangeRadioCardList, calculator, getScrollPosition }) => {
 
     const ScrollViewRef = React.useRef();
     const [selectedIndex, setRadioSelected] = useState(currentScore);
-    const [scrollViewPosX, setScrollViewPosX] = useState(0);
 
-    // 點擊完Radio，會rerender整個component，所以要記上次的位置
+    // 點擊完 Radio，會re-render整個component，所以要記上次的位置
     React.useEffect(() => {
-        ScrollViewRef.current.scrollTo({x: scrollViewPosX, y: 0, animated: true})
+        ScrollViewRef.current.scrollTo({x: calculator.scrollPosition.x, y: 0, animated: true})
     }, [])
 
     const handleRadioCardChange = index  => {
@@ -21,10 +22,12 @@ const RadioCardList = ({ listData, currentScore, onChangeRadioCardList }) => {
     }
 
     const handleScrollChange = event => {
-        dispatch('GET_SCROLLVIEW_POSITION', event.nativeEvent.contentOffset.x)
+        console.log(event.nativeEvent.contentOffset);
+        getScrollPosition(event.nativeEvent.contentOffset);
     }
+
     return (
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} ref={ScrollViewRef} onScroll={handleScrollChange}>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} ref={ScrollViewRef} onScroll={handleScrollChange} scrollEventThrottle={1}>
             {
                 listData.map(item => (
                     <RadioCard
@@ -42,12 +45,13 @@ const RadioCardList = ({ listData, currentScore, onChangeRadioCardList }) => {
     )
 };
 
+// TODO: 用 useSelector, useDispatch  取代
 const mapStateToProps = ({ calculator }) => ({
 	calculator,
 });
 
 const mapDispatchToProps = dispatch => ({
-	patientTest: () => dispatch(patientAction()),
+	getScrollPosition: position => dispatch(getScrollPosition(position)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RadioCardList);
