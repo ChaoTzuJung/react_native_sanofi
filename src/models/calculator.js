@@ -1,15 +1,3 @@
-import NeckBack from 'assets/neck-back.svg';
-import NeckFront from 'assets/neck-front.svg'; 
-
-import ArmBack from 'assets/arm-back.svg';
-import ArmFront from 'assets/arm-front.svg'; 
-
-import BodyBack from 'assets/body-back.svg';
-import BodyFront from 'assets/body-front.svg'; 
-
-import LegBack from 'assets/leg-back.svg';
-import LegFront from 'assets/leg-front.svg'; 
-
 export const symptomData = [
     {
         id: '1',
@@ -62,29 +50,29 @@ export const tabData = [
         id: '1',
         title: 'Head & Neck',
         score: 0,
-        front: NeckFront,
-        back: NeckBack,
+        front: 'NeckFront',
+        back: 'NeckBack',
     },
     {
         id: '2',
         title: 'Upper extremities',
         score: 0,
-        front: ArmFront,
-        back: ArmBack,
+        front: 'ArmFront',
+        back: 'ArmBack',
     },
     {
         id: '3',
         title: 'Trunk',
         score: 0,
-        front: BodyFront,
-        back: BodyBack,
+        front: 'BodyFront',
+        back: 'BodyBack',
     },
     {
         id: '4',
         title: 'Lower extremities',
         score: 0,
-        front: LegFront,
-        back: LegBack,
+        front: 'LegFront',
+        back: 'LegBack',
     },
     {
         id: '5',

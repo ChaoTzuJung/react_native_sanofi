@@ -7,8 +7,6 @@ import CheckedSecondIcon from 'assets/checked-second.svg';
 const Radio = ({ index, label, value, size, color, style, onRadioChange }) => {
     // TODO: 有什麼好作法?
     const [checked, setRadioChecked] = useState(value);
-    console.log('[state]:', checked, ' [props]:', value, 'label:', label);
-
     const handleRadioPress = () => {
        onRadioChange(index);
        setRadioChecked(index);
