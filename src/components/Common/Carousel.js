@@ -1,10 +1,7 @@
 import React from 'react';
-import {
-  View,
-} from 'react-native';
-// import { withNavigation } from 'react-navigation';
-
+import { View } from 'react-native';
 import Tabs from 'components/Common/Tabs';
+import { usePatient } from 'models/patient';
 
 const TabItem = props => <View {...props} />;
 
@@ -12,12 +9,18 @@ const Carousel = ({ data, navigation, children, render }) => {
   if (!data.length) {
     return null;
   }
+  const [{ patient }, { setPatientName }] = usePatient();
 
   return (
     <Tabs defaultIndex="1" horizontal={true} onTabClick={console.log}>
         {
             data.map(item => (
-              <TabItem label={item.title} index={item.id} key={item.id}>
+              <TabItem
+                key={item.id}
+                label={item.title}
+                index={item.id}
+                score={patient[item.title] ? patient[item.title].score : null}
+              >
                 {render(item)}
               </TabItem>
             ))
@@ -25,7 +28,5 @@ const Carousel = ({ data, navigation, children, render }) => {
     </Tabs>
   );
 };
-
-// export default withNavigation(Carousel);
 
 export default Carousel;

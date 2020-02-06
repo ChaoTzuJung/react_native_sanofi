@@ -89,7 +89,7 @@ export const tabData = [
     {
         id: '5',
         title: 'Result',
-        score: 0,
+        score: null,
         front: null,
         back: null,
     },

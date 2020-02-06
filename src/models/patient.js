@@ -1,16 +1,19 @@
 import { createAction, handleActions } from 'redux-actions';
 import { useRedux } from 'utils/hooks/redux';
 
-export const setPatientName = createAction('SET_PATIENT_NAME', async name => {
-    return name;
-});
+// area = payload
+export const setPatientArea = createAction('SET_PATIENT_AREA', async area => area);
 
 const reducer = {
 	patient: handleActions(
 		{
-			SET_PATIENT_NAME: (state, action) => ({
+			SET_PATIENT_AREA_FULFILLED: (state, action) => ({
                 ...state,
-				patientName: action.payload,
+                [action.payload.body]: {
+                    area: {
+                        ...action.payload,
+                    }
+                }
 			}),
 		},
         {
@@ -23,70 +26,70 @@ const reducer = {
             EASI: 0,
             BSA: 0,
             IGA: 0,
-            HeadNeck: {
-            id: '1',
-            area: {
-                areaScore: 0,
-                areaPercent: 0,
+            'Head & Neck': {
+                id: '1',
+                area: {
+                    areaScore: 0,
+                    areaPercent: 0,
+                },
+                symptom: {
+                    Erythema: 0,
+                    EdemaPapulation: 0,
+                    Excoriation: 0,
+                    Lichenification: 0,
+                },
+                score: '0',
             },
-            symptom: {
-                Erythema: 0,
-                EdemaPapulation: 0,
-                Excoriation: 0,
-                Lichenification: 0,
+            'Upper extremities': {
+                id: '2',
+                area: {
+                    areaScore: 0,
+                    areaPercent: 0,
+                },
+                symptom: {
+                    Erythema: 0,
+                    EdemaPapulation: 0,
+                    Excoriation: 0,
+                    Lichenification: 0,
+                },
+                score: '0',
             },
-            bodypartScore: '0',
+            'Trunk': {
+                id: '3',
+                area: {
+                    areaScore: 0,
+                    areaPercent: 0,
+                },
+                symptom: {
+                    Erythema: 0,
+                    EdemaPapulation: 0,
+                    Excoriation: 0,
+                    Lichenification: 0,
+                },
+                score: '0',
             },
-            UpperExtremities: {
-            id: '2',
-            area: {
-                areaScore: 0,
-                areaPercent: 0,
-            },
-            symptom: {
-                Erythema: 0,
-                EdemaPapulation: 0,
-                Excoriation: 0,
-                Lichenification: 0,
-            },
-            bodypartScore: '0',
-            },
-            Trunk: {
-            id: '3',
-            area: {
-                areaScore: 0,
-                areaPercent: 0,
-            },
-            symptom: {
-                Erythema: 0,
-                EdemaPapulation: 0,
-                Excoriation: 0,
-                Lichenification: 0,
-            },
-            bodypartScore: '0',
-            },
-            LowerExtremities: {
-            id: '4',
-            area: {
-                areaScore: 0,
-                areaPercent: 0,
-            },
-            symptom: {
-                Erythema: 0,
-                EdemaPapulation: 0,
-                Excoriation: 0,
-                Lichenification: 0,
-            },
-            bodypartScore: '0',
+            'Lower extremities': {
+                id: '4',
+                area: {
+                    areaScore: 0,
+                    areaPercent: 0,
+                },
+                symptom: {
+                    Erythema: 0,
+                    EdemaPapulation: 0,
+                    Excoriation: 0,
+                    Lichenification: 0,
+                },
+                score: '0',
             },
         }
 	),
 };
 
 const mapHooksToState = state => ({
-	patientName: state.patient.patientName,
+	patient: state.patient,
 });
 
-export const usePatient = () => useRedux(mapHooksToState, { setPatientName });
+export const usePatient = () => useRedux(mapHooksToState, { setPatientArea });
 
 export default { reducer };

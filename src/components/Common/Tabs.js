@@ -15,7 +15,7 @@ const Tabs = props => {
         return (
             <View>
                 <TabMenuHorizontal horizontal={true} showsHorizontalScrollIndicator={false} >
-                    {items.map(({ props: { index, label } }) => (
+                    {items.map(({ props: { index, label, score } }) => (
                         <TabMenuHorizontalItem
                             focus={bindIndex === index}
                             index={index}
@@ -26,7 +26,7 @@ const Tabs = props => {
                                 <CustomText color={bindIndex === index ? "#525ca3" : "#7c7c7c"} value={index} style={{ fontSize: 10 }} />
                             </CircleOrder>
                             <CustomText size="h7" color={bindIndex === index ? "#000000" : "#a77f7f"} value={label} style={{ lineHeight: 22 }} />
-                            <CustomText size="h6" color={bindIndex === index ? "#000000" : "rgba(0, 0, 0, 0.5)"} value="Score: 0.00" style={{ lineHeight: 24 }} />
+                            {score && <CustomText size="h6" color={bindIndex === index ? "#000000" : "rgba(0, 0, 0, 0.5)"} value={`Score: ${score}`} style={{ lineHeight: 24 }} />}
                         </TabMenuHorizontalItem>
                     ))}
                 </TabMenuHorizontal>
@@ -95,11 +95,11 @@ const TabMenu = styled.View`
 
 const TabMenuHorizontal = styled.ScrollView.attrs({
     contentContainerStyle: props => {
-      return {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-      }
+        return {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+        }
     },
 })`
     padding-left: 10px;

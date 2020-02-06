@@ -6,6 +6,7 @@ import Accordion, { AccordionItem } from 'components/Common/Accordion';
 import RadioCardList from 'components/Common/RadioCardList';
 
 import { symptomData } from 'utils/resources/static';
+import { usePatient } from 'models/patient';
 
 import NeckFront from 'assets/neck-front.svg'; 
 import NeckBack from 'assets/neck-back.svg';
@@ -44,21 +45,14 @@ const SvgComponent = ({ name }) => {
 
 const CalculatorLayout = props => {
     const [value, onChangeText] = React.useState('');
-    const [areaPoint, setAreaPoint] = React.useState(0);
-    // NOTE: 用字串 0 去避免一開始 Radio index 跟 value 比較時 相同，導致redio 0號預設先亮起
+    const [areaPoint , setAreaPoint ] = React.useState(0);
     const [symptomScore, updateSymptomScore] = React.useState({
         Erythema: '0',
         'Edema / papulation': '0',
         Excoriation: '0',
         Lichenification: '0',
     });
-
-    // const handleRadioCardListChange = (name, score) => {
-    //     updateSymptomScore(() => ({
-    //         ...symptomScore,
-    //         [name]: score,
-    //     }))
-    // };
+    const [{ patient }, { setPatientArea }] = usePatient();
 
     const computedAreaScore = value => {
         onChangeText(value);
@@ -92,6 +86,8 @@ const CalculatorLayout = props => {
                 onChangeText('');
                 setAreaPoint(0);
             }
+
+            setPatientArea({ areaScore: areaPoint, areaPercent: value, body: props.title});
         }, 100);
     };
 
