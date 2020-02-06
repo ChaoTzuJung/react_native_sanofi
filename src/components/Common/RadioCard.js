@@ -8,8 +8,7 @@ import Radio from 'components/Common/Radio';
 import ResizeIcon from 'assets/resize.svg';
 import InfoIcon from 'assets/info.svg';
 
-const RadioCard = ({ defaultIndex, label, value, image, info, imageWidth = '300px', onRadioCardChange }) => {
-    const [radioCheck, setRadioCheck] = useState(false);
+const RadioCard = ({ id, label, image, info, imageWidth = '300px', isSelect, onRadioChange }) => {
 
     return (
         <RadioCardContainer width={imageWidth}>
@@ -19,13 +18,13 @@ const RadioCard = ({ defaultIndex, label, value, image, info, imageWidth = '300p
             </RadioCardTop>
             <RadioCardBottom>
                 <Radio
-                    index={defaultIndex}
+                    id={id}
                     label={label}
-                    value={value}
                     size="24"
                     color="main"
                     style={{ marginRight: 12 }}
-                    onRadioChange={onRadioCardChange}
+                    isSelect={isSelect}
+                    onRadioChange={onRadioChange}
                 />
                 <CustomText font="normal" size="h5" color="#000000" value={label} style={{ marginRight: 'auto', marginTop: 4 }} />
                 <InfoIcon />

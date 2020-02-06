@@ -1,3 +1,15 @@
+import FrontHead from 'assets/front-head-sm.svg';
+import BackHead from 'assets/back-head-sm.svg';
+
+import FrontUpper from 'assets/front-upper-sm.svg';
+import BackUpper from 'assets/back-upper-sm.svg';
+
+import FrontTrunk from 'assets/front-trunk-sm.svg';
+import BackTrunk from 'assets/back-trunk-sm.svg';
+
+import FrontLower from 'assets/front-lower-sm.svg';
+import BackLower from 'assets/back-lower-sm.svg';
+
 export const symptomData = [
     {
         id: '1',
@@ -7,7 +19,7 @@ export const symptomData = [
             {label: 'None', score: 0, image: require('assets/Erythema_Clear_Skin.jpg'), info: null},
             {label: 'Mild', score: 1, image: require('assets/Erythema_Mild.jpg'), info: 'Faintly detectable, pink'},
             {label: 'Moderate', score: 2, image: require('assets/Erythema_Moderate.jpg'), info: 'Clearly distinguishable dull red'},
-            {score: 3, label: 'Severe', image: require('assets/Erythema_Severe.jpg'), info: 'Deep dark or fiery bright red'},
+            {label: 'Severe', score: 3, image: require('assets/Erythema_Severe.jpg'), info: 'Deep dark or fiery bright red'},
         ],
     },
     {
@@ -43,7 +55,7 @@ export const symptomData = [
             {label: 'Severe', score: 3, image: require('assets/Lichenification_Severe.jpg'), info: 'Prominent thickening, exaggerated markings creating deep furrows and/or many prurigo nodules'},
         ],
     }
-]
+];
 
 export const tabData = [
     {
@@ -82,3 +94,76 @@ export const tabData = [
         back: null,
     },
 ];
+
+export const bodyData = {
+    'Head & Neck': [
+        {
+            title: 'Front',
+            value1: '17%',
+            value2: '33%',
+            color1: '#f7ee7f',
+            color2: '#f0dd00',
+            component: FrontHead
+        },
+        {
+            title: 'Back',
+            value1: '17%',
+            value2: '33%',
+            color1: '#f7ee7f',
+            color2: '#f0dd00',
+            component: BackHead
+        }
+    ],
+    'Upper extremities': [
+        {
+            title: 'Front',
+            value1: '17%',
+            value2: '33%',
+            color1: '#00a590',
+            color2: '#00a590',
+            component: FrontUpper
+        },
+        {
+            title: 'Back',
+            value1: '17%',
+            value2: '33%',
+            color1: '#00a590',
+            color2: '#00a590',
+            component: BackUpper
+        }
+    ],
+    'Trunk': [
+        {
+            title: 'Front',
+            value2: '55%',
+            color2: '#fbba00',
+            component: FrontTrunk
+        },
+        {
+            title: 'Back',
+            value2: '45%',
+            color2: '#fbba00',
+            component: BackTrunk
+        }
+    ],
+    'Lower extremities': [
+        {
+            title: 'Front',
+            value1: '22.5%',
+            value2: '22.5%',
+            color1: '#bcbc1c',
+            color2: '#bcbc1c',
+            component: FrontLower
+        },
+        {
+            title: 'Back',
+            value1: '22.5%',
+            value2: '22.5%',
+            value3: '22.5%',
+            color1: '#bcbc1c',
+            color2: '#bcbc1c',
+            color3: '#dddd8d',
+            component: BackLower
+        }
+    ],
+}

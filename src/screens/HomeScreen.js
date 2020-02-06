@@ -9,7 +9,7 @@ import BodySection from 'components/Common/BodySection';
 import Tabs from 'components/Common/Tabs';
 import Footer from 'components/Common/Footer';
 
-import { bodyData } from 'models/body';
+import { bodyData } from 'utils/resources/static';
 
 const TabItem = props => <View {...props} />;
 

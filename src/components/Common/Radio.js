@@ -4,25 +4,19 @@ import styled, { withTheme }  from 'styled-components/native';
 import CheckedMainIcon from 'assets/checked-main.svg';
 import CheckedSecondIcon from 'assets/checked-second.svg';
 
-const Radio = ({ index, label, value, size, color, style, onRadioChange }) => {
-    // TODO: 有什麼好作法?
-    const [checked, setRadioChecked] = useState(value);
-    const handleRadioPress = () => {
-        onRadioChange(index);
-        setRadioChecked(index);
-    }
-
+const Radio = ({ id, label, size, color, style, isSelect, onRadioChange }) => {
+    console.log('Radio', id);
     return (
         <RadioButton 
             size={size}
             color={color}
-            selected={checked === index}
+            selected={isSelect}
             style={style}
-            onPress={() => handleRadioPress()}
+            onPress={() => onRadioChange(id)}
         >
             {
-                color === 'main' && checked === index ? <CheckedMainIcon />
-                : color === 'second' && checked === index ? <CheckedSecondIcon />
+                color === 'main' && isSelect ? <CheckedMainIcon />
+                : color === 'second' && isSelect ? <CheckedSecondIcon />
                 : null
             }
         </RadioButton>

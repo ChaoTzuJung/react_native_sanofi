@@ -5,7 +5,7 @@ import CustomText from 'components/Common/CustomText';
 import Accordion, { AccordionItem } from 'components/Common/Accordion';
 import RadioCardList from 'components/Common/RadioCardList';
 
-import { symptomData } from 'models/calculator';
+import { symptomData } from 'utils/resources/static';
 
 import NeckFront from 'assets/neck-front.svg'; 
 import NeckBack from 'assets/neck-back.svg';
@@ -15,6 +15,8 @@ import BodyFront from 'assets/body-front.svg';
 import BodyBack from 'assets/body-back.svg';
 import LegFront from 'assets/leg-front.svg'; 
 import LegBack from 'assets/leg-back.svg';
+
+export const symptomContext = React.createContext(null);
 
 const SvgComponent = ({ name }) => {
     let Component = <Text>沒圖片</Text>;
@@ -51,14 +53,12 @@ const CalculatorLayout = props => {
         Lichenification: '0',
     });
 
-
-    const handleRadioCardListChange = (name, score) => {
-        updateSymptomScore(() => ({
-            ...symptomScore,
-            [name]: score,
-        }))
-    };
-
+    // const handleRadioCardListChange = (name, score) => {
+    //     updateSymptomScore(() => ({
+    //         ...symptomScore,
+    //         [name]: score,
+    //     }))
+    // };
 
     const computedAreaScore = value => {
         onChangeText(value);
@@ -120,19 +120,21 @@ const CalculatorLayout = props => {
                 <CustomText color="#a77f7f" value="*Given each respective body region a score between 0 and 6 based on the estimated percentage involment." style={{ lineHeight: 20 }} />
                 <SubTitle>EASI lesion severity atlas</SubTitle>
             </View>
-            <Accordion defaultIndex={null} onItemClick={console.log}>
-                {
-                    symptomData.map(symptom => (
-                        <AccordionItem 
-                            key={symptom.id} 
-                            label={`${symptom.name}: ${symptomScore[symptom.name]}`}
-                            index={symptom.id}
-                        >
-                            <RadioCardList currentScore={symptomScore[symptom.name]} listData={symptom.data} onChangeRadioCardList={(index) => handleRadioCardListChange(symptom.name, index)} />
-                        </AccordionItem>
-                    ))
-                }
-            </Accordion>
+            <symptomContext.Provider value={[symptomScore, updateSymptomScore]}>
+                <Accordion defaultIndex={null} onItemClick={console.log}>
+                    {
+                        symptomData.map(symptom => (
+                            <AccordionItem 
+                                key={symptom.id} 
+                                label={`${symptom.name}: ${symptomScore[symptom.name]}`}
+                                index={symptom.id}
+                            >
+                                <RadioCardList listData={symptom.data} name={symptom.name} />
+                            </AccordionItem>
+                        ))
+                    }
+                </Accordion>
+            </symptomContext.Provider>
         </View>
     )
 }

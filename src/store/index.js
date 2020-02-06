@@ -3,7 +3,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import promiseMiddleware from 'redux-promise-middleware';
 import thunkMiddleware from 'redux-thunk';
 import devToolsEnhancer from 'remote-redux-devtools';
-import reducers from 'reducers';
+import reducers from 'models/reducers';
 
 const middlewares = [thunkMiddleware, promiseMiddleware];
 let composeEnhancers = compose;

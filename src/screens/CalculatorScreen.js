@@ -7,7 +7,7 @@ import Carousel from 'components/Common/Carousel';
 import CustomText from 'components/Common/CustomText';
 import Footer from 'components/Common/Footer';
 
-import { tabData } from 'models/calculator';
+import { tabData } from 'utils/resources/static';
 
 const CalculatorScreen = ({ navigation, theme, patient, patientTest }) => (
     <ScrollView>
