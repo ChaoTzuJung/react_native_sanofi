@@ -5,7 +5,6 @@ import CheckedMainIcon from 'assets/checked-main.svg';
 import CheckedSecondIcon from 'assets/checked-second.svg';
 
 const Radio = ({ id, label, size, color, style, isSelect, onRadioChange }) => {
-    console.log('Radio', id);
     return (
         <RadioButton 
             size={size}
