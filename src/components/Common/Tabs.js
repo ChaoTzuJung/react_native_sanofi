@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, ScrollView } from 'react-native';
+import { View } from 'react-native';
 import styled from 'styled-components/native';
 import CustomText from 'components/Common/CustomText';
 
@@ -26,7 +26,7 @@ const Tabs = props => {
                                 <CustomText color={bindIndex === index ? "#525ca3" : "#7c7c7c"} value={index} style={{ fontSize: 10 }} />
                             </CircleOrder>
                             <CustomText size="h7" color={bindIndex === index ? "#000000" : "#a77f7f"} value={label} style={{ lineHeight: 22 }} />
-                            {score && <CustomText size="h6" color={bindIndex === index ? "#000000" : "rgba(0, 0, 0, 0.5)"} value={`Score: ${score}`} style={{ lineHeight: 24 }} />}
+                            {typeof score !== Number && <CustomText size="h6" color={bindIndex === index ? "#000000" : "rgba(0, 0, 0, 0.5)"} value={`Score: ${score}`} style={{ lineHeight: 24 }} />}
                         </TabMenuHorizontalItem>
                     ))}
                 </TabMenuHorizontal>

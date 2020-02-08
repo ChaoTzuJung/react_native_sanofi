@@ -9,16 +9,19 @@ import ResizeIcon from 'assets/resize.svg';
 import InfoIcon from 'assets/info.svg';
 
 import { symptomContext } from '../../layouts/CalculatorLayout';
+import { usePatient } from 'models/patient';
 
 const RadioCard = ({ name, index, label, image, info, imageWidth = '300px', isSelect }) => {
 
-    const [symptomScore, updateSymptomScore] = useContext(symptomContext);
+    const [symptomScore, updateSymptomScore, body] = useContext(symptomContext);
+    const [, { setPatientSymptom }] = usePatient();
 
     onRadioChange = id => {
         updateSymptomScore(() => ({
             ...symptomScore,
             [name]: id,
         }));
+        setPatientSymptom({ [name]: id, body })
     }
 
     return (

@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 
 import promiseMiddleware from 'redux-promise-middleware';
-import thunkMiddleware from 'redux-thunk';
+import thunkMiddleware from 'redux-thunk-fsa';
 import devToolsEnhancer from 'remote-redux-devtools';
 import reducers from 'models/reducers';
 

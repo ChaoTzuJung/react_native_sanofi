@@ -52,7 +52,8 @@ const CalculatorLayout = props => {
         Excoriation: '0',
         Lichenification: '0',
     });
-    const [{ patient }, { setPatientArea }] = usePatient();
+    const [, { setPatientArea }] = usePatient();
+
 
     const computedAreaScore = value => {
         onChangeText(value);
@@ -61,34 +62,32 @@ const CalculatorLayout = props => {
         if (timeout) clearTimeout(timeout);
 
         // make lazy input
-        timeout = setTimeout(() => {
-            if (score >= 90 && score <= 100) setAreaPoint(6);
-            if (score >= 70 && score <= 89) setAreaPoint(5);
-            if (score >= 50 && score <= 69) setAreaPoint(4);
-            if (score >= 30 && score <= 49) setAreaPoint(3);
-            if (score >= 10 && score <= 29) setAreaPoint(2);
-            if (score >= 1 && score <= 9) setAreaPoint(1);
-            if (value == 0) setAreaPoint(0);
+        // timeout = setTimeout(() => {}, 100);
+        if (score >= 90 && score <= 100) setAreaPoint(6);
+        if (score >= 70 && score <= 89) setAreaPoint(5);
+        if (score >= 50 && score <= 69) setAreaPoint(4);
+        if (score >= 30 && score <= 49) setAreaPoint(3);
+        if (score >= 10 && score <= 29) setAreaPoint(2);
+        if (score >= 1 && score <= 9) setAreaPoint(1);
+        if (value == 0) setAreaPoint(0);
 
-            // 超過 100
-            if (score > 100) {
-                onChangeText('');
-                setAreaPoint(0);
-            }
-            // 負數
-            if (score < 0) {
-                onChangeText('');
-                setAreaPoint(0);
-            }
+        // 超過 100
+        if (score > 100) {
+            onChangeText('');
+            setAreaPoint(0);
+        }
+        // 負數
+        if (score < 0) {
+            onChangeText('');
+            setAreaPoint(0);
+        }
 
-            // 中文文字 / 奇怪符號
-            if (!score && score !== 0) {
-                onChangeText('');
-                setAreaPoint(0);
-            }
-
-            setPatientArea({ areaScore: areaPoint, areaPercent: value, body: props.title});
-        }, 100);
+        // 中文文字 / 奇怪符號
+        if (!score && score !== 0) {
+            onChangeText('');
+            setAreaPoint(0);
+        }
+        setPatientArea({ areaScore: areaPoint, areaPercent: value, body: props.title});
     };
 
     return (
@@ -116,7 +115,7 @@ const CalculatorLayout = props => {
                 <CustomText color="#a77f7f" value="*Given each respective body region a score between 0 and 6 based on the estimated percentage involment." style={{ lineHeight: 20 }} />
                 <SubTitle>EASI lesion severity atlas</SubTitle>
             </View>
-            <symptomContext.Provider value={[symptomScore, updateSymptomScore]}>
+            <symptomContext.Provider value={[symptomScore, updateSymptomScore, props.title]}>
                 <Accordion defaultIndex={null} onItemClick={console.log}>
                     {
                         symptomData.map(symptom => (
@@ -177,7 +176,6 @@ const InputArea = styled.TextInput`
     border-bottom-width: 1px;
     border-bottom-color: ${props => props.theme.brown};
     opacity: 0.8;
-
 `
 
 export default CalculatorLayout;
