@@ -1,20 +1,27 @@
 import React, { useState } from 'react';
-import { View , Text } from 'react-native';
+import { View , Text, Slider, Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import { usePatient } from 'models/patient';
 import Alert from 'components/Common/Alert';
 import CustomText from 'components/Common/CustomText';
 import Radio from 'components/Common/Radio';
-import BSASlider from 'components/Common/BSASlider';
 import QuestionIcon from 'assets/question.svg';
+
 const bodyLabel = ['Head & Neck', 'Upper extremities', 'Trunk', 'Lower extremities'];
 const igaLabel = ['0 - Clear', '1 - Almost Clear', '2 - Mild', '3 - Moderate', '4 - Severe'];
+const { width: screenWidth } = Dimensions.get("window");
 
 const ResultLayout = props => {
     const [IGA, setIGA] = useState(null);
+    const [BSA, setBSA] = useState(0);
     const [{ patient }] = usePatient();
 
     const onRadioChange = id => setIGA(id);
+
+    // const onSlidingComplete = val => setBSA(val.toFixed(0));
+
+    const onValueChange = val => setBSA(Math.floor(val));
+
     return (
         <ResultContainer> 
             <EasiSection>
@@ -59,8 +66,23 @@ const ResultLayout = props => {
                 <Alert value="*Required fields." style={{ marginTop: 8 }} />
             </IGASection>
             <BSASection>
-                <CustomText size="h6" color="#333" value="BSA（Body Surface Area）: 41％" style={{ marginBottom: 14 }} />
-                <BSASlider />
+                <CustomText size="h6" color="#333" value={`BSA（Body Surface Area）: ${BSA}％`} style={{ marginBottom: 14 }} />
+                <SliderLabels>
+                    <CustomText font="normal" size="h7" color="#333" value="0%"  />
+                    <CustomText font="normal" size="h7" color="#333" value="25%" />
+                    <CustomText font="normal" size="h7" color="#333" value="50%" />
+                    <CustomText font="normal" size="h7" color="#333" value="75%" />
+                    <CustomText font="normal" size="h7" color="#333" value="100%" />
+                </SliderLabels>
+                <Slider
+                    maximumValue={100}
+                    onValueChange={onValueChange}
+                    value={0}
+                    thumbTintColor="#525ca3"
+                    minimumTrackTintColor="#eeeeee"
+                    maximumTrackTintColor="#eeeeee"
+                    style={{ height: 10, borderRadius: 5, backgroundColor: "#eeeeee", marginTop: 10, marginBottom: 40 }}
+                />
             </BSASection>
         </ResultContainer>
     )
@@ -68,6 +90,12 @@ const ResultLayout = props => {
 
 export default ResultLayout;
 
+const SliderLabels = styled.View`
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 10px;
+`
 
 const ResultContainer = styled.View`
     padding: 0 20px;

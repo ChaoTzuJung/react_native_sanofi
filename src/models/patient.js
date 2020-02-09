@@ -5,6 +5,8 @@ import { useRedux } from 'utils/hooks/redux';
 export const setPatientArea = createAction('SET_PATIENT_AREA', ({ areaScore, areaPercent }) => async (dispatch, getState) => {
     const { route } = getState();
 
+    console.log(route.query);
+
     return new Promise((resolve, reject) => {
         resolve({ areaScore, areaPercent, body: route.query })
         reject("[Action] Dispatch calculatorBodyScore Fail !!")
@@ -29,6 +31,9 @@ export const calculatorBodyScore = createAction('CALCULATOR_BODY_SCORE', body =>
     const areaPoint = patient[body].area.areaScore;
     const symptomScore = Object.values(patient[body].symptom).reduce((prev, element) => prev + parseInt(element), 0);
     const sum = (areaPoint * symptomScore * 0.1).toFixed(1);
+    console.log('patient[body].area', patient[body].area);
+    console.log('symptomScore', symptomScore);
+    console.log('sum', sum);
 
     return new Promise((resolve, reject) => {
         resolve({ sum, body })
@@ -52,6 +57,28 @@ export const checkTabStatus = createAction('CHECK_TAB_STATUS', body => async (di
         reject("[Action] Dispatch checkTabStatus Fail !!")
 
         return { isCompleted, body };
+    })
+});
+
+export const calculatorResult = createAction('CHECK_TAB_STATUS', () => async (dispatch, getState) => {
+    const { patient } = getState();
+
+    const result = patient['Head & Neck'].score + patient['Upper extremities'].score + patient['Trunk'].score + patient['Lower extremities'].score;
+    
+    let interpretation;
+    if (result <= 0) interpretation = 'Clear';
+    if (result >= 0.1 && result <= 1.0) interpretation = 'Almost Clear';
+    if (result >= 1.1 && result <= 7.0) interpretation = 'Mild';
+    if (result >= 7.1 && result <= 21.0) interpretation = 'Moderate';
+    if (result >= 21.1 && result <= 50.0) interpretation = 'Severe';
+    if (result >= 50.1 && result <= 72.0) interpretation = 'Very Severe';
+    if (result > 72.0) interpretation = 'Very Severe';
+
+    return new Promise((resolve, reject) => {
+        resolve({ EASI: result, interpretation })
+        reject("[Action] Dispatch calculatorResult Fail !!")
+
+        return { EASI: result, interpretation };
     })
 });
 
@@ -93,6 +120,11 @@ const reducer = {
                     ...state[action.payload.body],
                     completed: action.payload.isCompleted,
                 }
+            }),
+            CALCULATOR_RESULT_FULFILLED: (state, action) => ({
+                ...state,
+                EASI: action.payload.result,
+                interpretation: action.payload.interpretation
             }),
 		},
         {
@@ -182,6 +214,6 @@ const mapHooksToState = state => ({
     LowerScore:  state.patient['Lower extremities'],
 });
 
-export const usePatient = () => useRedux(mapHooksToState, { setPatientArea, setPatientSymptom, calculatorBodyScore, checkTabStatus });
+export const usePatient = () => useRedux(mapHooksToState, { setPatientArea, setPatientSymptom, calculatorBodyScore, checkTabStatus, calculatorResult });
 
 export default { reducer };

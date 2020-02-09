@@ -8,15 +8,26 @@ const QUERY_MAP = {
     4: 'Lower extremities',
     5: 'Result',
 }
-export const setRouteChange = createAction('SET_ROUTE_CHANGE', async param => ({path: param.path, query: param.query}));
+
+
+export const setRouteChange = createAction('SET_ROUTE_CHANGE', async param => async (dispatch, getState) => {
+    if(param.query === '5') dispatch(calculatorResult);
+
+    return new Promise((resolve, reject) => {
+        resolve({ path: param.path, query: QUERY_MAP[param.query] })
+        reject("[Action] Dispatch setRouteChange Fail !!")
+
+        return { path: param.path, query: QUERY_MAP[param.query] };
+    })
+});
 
 const reducer = {
 	route: handleActions(
 		{
-			SET_ROUTE_CHANGE_FULFILLED: (state, action) => ({
+			SET_ROUTE_CHANGE_FULFILLED_FULFILLED: (state, action) => ({
                 ...state,
                 path: action.payload.path ? action.payload.path : state.path,
-                query: action.payload.query ? QUERY_MAP[action.payload.query] : state.query,
+                query: action.payload.query ? action.payload.query : state.query,
             }),
 		},
         {

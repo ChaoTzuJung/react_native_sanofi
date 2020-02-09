@@ -2,22 +2,21 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import styled from 'styled-components/native';
 import { usePatient } from 'models/patient';
-import { useRoute } from 'models/route';
 
 import CustomText from 'components/Common/CustomText';
 import CheckedMainIcon from 'assets/checked-main.svg';
 
 const TAB_MAP = {
-    'Head & Neck': '1',
-    'Upper extremities': '2',
-    'Trunk': '3',
-    'Lower extremities': '4',
+    1: 'Head & Neck',
+    2: 'Upper extremities',
+    3: 'Trunk',
+    4: 'Lower extremities',
+    5: 'Result',
 }
 
 const Tabs = props => {
     const [bindIndex, setBindIndex] = React.useState(props.defaultIndex);
     const [{ patient }] = usePatient();
-    const [{ route }] = useRoute();
     const changeTab = newIndex => {
         if (typeof props.onTabClick === 'function') props.onTabClick(newIndex);
         setBindIndex(newIndex);
@@ -35,7 +34,7 @@ const Tabs = props => {
                             key={label}
                             onPress={() => changeTab(index)} 
                         >
-                            {patient[route.query].completed && TAB_MAP[route.query] === index ? <CheckedMainIcon width={16} height={16}/> : (
+                            {patient[TAB_MAP[index]].completed ? <CheckedMainIcon width={16} height={16}/> : (
                                 <CircleOrder focus={bindIndex === index}>
                                     <CustomText color={bindIndex === index ? "#525ca3" : "#7c7c7c"} value={index} style={{ fontSize: 10 }} />
                                 </CircleOrder>

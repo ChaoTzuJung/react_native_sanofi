@@ -12,7 +12,7 @@ const Carousel = ({ data, navigation, render }) => {
   const [, { setRouteChange }] = useRoute();
 
   return (
-    <Tabs defaultIndex="1" horizontal={true} onTabClick={(newIndex) => setRouteChange({query: newIndex})}>
+    <Tabs defaultIndex="1" horizontal={true} onTabClick={(newIndex) => setRouteChange({path: 'Calculator', query: newIndex})}>
         {
             data.map(item => (
               <TabItem
