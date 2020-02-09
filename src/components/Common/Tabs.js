@@ -1,10 +1,23 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import styled from 'styled-components/native';
+import { usePatient } from 'models/patient';
+import { useRoute } from 'models/route';
+
 import CustomText from 'components/Common/CustomText';
+import CheckedMainIcon from 'assets/checked-main.svg';
+
+const TAB_MAP = {
+    'Head & Neck': '1',
+    'Upper extremities': '2',
+    'Trunk': '3',
+    'Lower extremities': '4',
+}
 
 const Tabs = props => {
     const [bindIndex, setBindIndex] = React.useState(props.defaultIndex);
+    const [{ patient }] = usePatient();
+    const [{ route }] = useRoute();
     const changeTab = newIndex => {
         if (typeof props.onTabClick === 'function') props.onTabClick(newIndex);
         setBindIndex(newIndex);
@@ -22,11 +35,13 @@ const Tabs = props => {
                             key={label}
                             onPress={() => changeTab(index)} 
                         >
-                            <CircleOrder focus={bindIndex === index}>
-                                <CustomText color={bindIndex === index ? "#525ca3" : "#7c7c7c"} value={index} style={{ fontSize: 10 }} />
-                            </CircleOrder>
+                            {patient[route.query].completed && TAB_MAP[route.query] === index ? <CheckedMainIcon width={16} height={16}/> : (
+                                <CircleOrder focus={bindIndex === index}>
+                                    <CustomText color={bindIndex === index ? "#525ca3" : "#7c7c7c"} value={index} style={{ fontSize: 10 }} />
+                                </CircleOrder>
+                            )}
                             <CustomText size="h7" color={bindIndex === index ? "#000000" : "#a77f7f"} value={label} style={{ lineHeight: 22 }} />
-                            {typeof score !== Number && <CustomText size="h6" color={bindIndex === index ? "#000000" : "rgba(0, 0, 0, 0.5)"} value={`Score: ${score}`} style={{ lineHeight: 24 }} />}
+                            {score !== null && <CustomText size="h6" color={bindIndex === index ? "#000000" : "rgba(0, 0, 0, 0.5)"} value={`Score: ${score}`} style={{ lineHeight: 24 }} />}
                         </TabMenuHorizontalItem>
                     ))}
                 </TabMenuHorizontal>

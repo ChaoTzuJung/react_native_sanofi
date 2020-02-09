@@ -1,12 +1,12 @@
 import React from 'react';
 import { View , Text } from 'react-native';
 import styled from 'styled-components/native';
+import { usePatient } from 'models/patient';
 import CustomText from 'components/Common/CustomText';
 import Accordion, { AccordionItem } from 'components/Common/Accordion';
 import RadioCardList from 'components/Common/RadioCardList';
 
 import { symptomData } from 'utils/resources/static';
-import { usePatient } from 'models/patient';
 
 import NeckFront from 'assets/neck-front.svg'; 
 import NeckBack from 'assets/neck-back.svg';
@@ -44,7 +44,7 @@ const SvgComponent = ({ name }) => {
 };
 
 const CalculatorLayout = props => {
-    const [value, onChangeText] = React.useState('');
+    const [text, setText] = React.useState('');
     const [areaPoint , setAreaPoint ] = React.useState(0);
     const [symptomScore, updateSymptomScore] = React.useState({
         Erythema: '0',
@@ -52,42 +52,42 @@ const CalculatorLayout = props => {
         Excoriation: '0',
         Lichenification: '0',
     });
-    const [, { setPatientArea }] = usePatient();
 
+    const [, { setPatientArea, calculatorBodyScore, checkTabStatus }] = usePatient();
 
-    const computedAreaScore = value => {
-        onChangeText(value);
-        const score = parseInt(value);
-        let timeout;
-        if (timeout) clearTimeout(timeout);
+    const onTextChange = event => {
+        const percent = event;
+        setText(percent);
+    }
 
-        // make lazy input
-        // timeout = setTimeout(() => {}, 100);
-        if (score >= 90 && score <= 100) setAreaPoint(6);
-        if (score >= 70 && score <= 89) setAreaPoint(5);
-        if (score >= 50 && score <= 69) setAreaPoint(4);
-        if (score >= 30 && score <= 49) setAreaPoint(3);
-        if (score >= 10 && score <= 29) setAreaPoint(2);
-        if (score >= 1 && score <= 9) setAreaPoint(1);
-        if (value == 0) setAreaPoint(0);
+    const submitAreaScore = async score => {
+        setAreaPoint(score);
+        await setPatientArea({ areaScore: score, areaPercent: text});
+        await calculatorBodyScore(props.title);
+        await checkTabStatus(props.title);
+    }
+    const onTextSubmit = event => {
+        const score = parseInt(text);
 
-        // 超過 100
-        if (score > 100) {
-            onChangeText('');
-            setAreaPoint(0);
-        }
-        // 負數
-        if (score < 0) {
-            onChangeText('');
+        if (score >= 90 && score <= 100) submitAreaScore(6);
+        if (score >= 70 && score <= 89) submitAreaScore(5);
+        if (score >= 50 && score <= 69) submitAreaScore(4);
+        if (score >= 30 && score <= 49) submitAreaScore(3);
+        if (score >= 10 && score <= 29) submitAreaScore(2);
+        if (score >= 1 && score <= 9) submitAreaScore(1);
+        if (score === 0) submitAreaScore(0);
+
+        // 超過 100 / 負數
+        if (score > 100 || score < 0) {
+            setText('');
             setAreaPoint(0);
         }
 
         // 中文文字 / 奇怪符號
         if (!score && score !== 0) {
-            onChangeText('');
+            setText('');
             setAreaPoint(0);
         }
-        setPatientArea({ areaScore: areaPoint, areaPercent: value, body: props.title});
     };
 
     return (
@@ -109,8 +109,9 @@ const CalculatorLayout = props => {
                 </SubTitle>
                 <CustomText size="h6" color="#333333" value="%Involvement:" style={{ lineHeight: 24 }}/>
                 <InputArea
-                    onChangeText={text => computedAreaScore(text)}
-                    value={value}
+                    onEndEditing={onTextSubmit}
+                    onChangeText={onTextChange}
+                    value={text}
                 />
                 <CustomText color="#a77f7f" value="*Given each respective body region a score between 0 and 6 based on the estimated percentage involment." style={{ lineHeight: 20 }} />
                 <SubTitle>EASI lesion severity atlas</SubTitle>

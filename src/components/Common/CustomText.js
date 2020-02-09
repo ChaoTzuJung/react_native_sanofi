@@ -10,9 +10,9 @@ const handleFont = font => {
         case 'normal':
             return 'font-family: ITCAvantGardeProBk;';
         case 'medium':
-            return 'font-family: ITCAvantGardeProBk;';
+            return 'font-family: ITCAvantGardeProMd;';
         case 'bold':
-            return 'font-family: ITCAvantGardeProBk;';
+            return 'font-family: ITCAvantGardeProBold;';
         default:
             return 'font-family: Arial;';
     }

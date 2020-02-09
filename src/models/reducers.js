@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import patient from './patient';
-import scroll from './scroll';
+import route from './route';
 
 const reducers = combineReducers({
 	...patient.reducer,
-	...scroll.reducer,
+	...route.reducer,
 });
 
 export default reducers;

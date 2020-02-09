@@ -14,14 +14,16 @@ import { usePatient } from 'models/patient';
 const RadioCard = ({ name, index, label, image, info, imageWidth = '300px', isSelect }) => {
 
     const [symptomScore, updateSymptomScore, body] = useContext(symptomContext);
-    const [, { setPatientSymptom }] = usePatient();
+    const [, { setPatientSymptom, calculatorBodyScore, checkTabStatus }] = usePatient();
 
-    onRadioChange = id => {
+    onRadioChange = async id => {
         updateSymptomScore(() => ({
             ...symptomScore,
             [name]: id,
         }));
-        setPatientSymptom({ [name]: id, body })
+        await setPatientSymptom({ ...symptomScore, [name]: id });
+        await calculatorBodyScore(body);
+        await checkTabStatus(body);
     }
 
     return (
