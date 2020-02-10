@@ -23,7 +23,7 @@ const MainStack = createStackNavigator(
         },
     },
     {
-        initialRouteName: 'Calculator',
+        initialRouteName: 'Patient',
         defaultNavigationOptions: {
             headerStyle: {
                 backgroundColor: '#FFF',

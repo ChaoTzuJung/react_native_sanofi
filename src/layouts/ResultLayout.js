@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View , Text, Slider, Dimensions } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View , Text, Slider, Dimensions, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 import { usePatient } from 'models/patient';
 import Alert from 'components/Common/Alert';
@@ -12,26 +12,34 @@ const igaLabel = ['0 - Clear', '1 - Almost Clear', '2 - Mild', '3 - Moderate', '
 const { width: screenWidth } = Dimensions.get("window");
 
 const ResultLayout = props => {
+    const [{ patient }, { setPatientIGA, setPatientBSA }] = usePatient();
     const [IGA, setIGA] = useState(null);
-    const [BSA, setBSA] = useState(0);
-    const [{ patient }] = usePatient();
+    const [sliderValue, setSliderValue] = useState(0);
+    const [BSA, setBSA] = useState(patient.BSA);
+
+    useEffect(() => {
+        setSliderValue(patient.BSA);
+    }, [patient.BSA])
 
     const onRadioChange = id => setIGA(id);
+    const onSlidingComplete = val => setBSA(val);
+    const onValueChange = val => setSliderValue(Math.floor(val));
+    const navigateToPatientScreen = () => {
+        if(IGA === null) return alert('Please fill in IGA field!');
+        props.navigation.navigate('Patient');
+    }
 
-    // const onSlidingComplete = val => setBSA(val.toFixed(0));
-
-    const onValueChange = val => setBSA(Math.floor(val));
-
+    const navigateToHead = () => console.log('navigateToHead');
     return (
         <ResultContainer> 
             <EasiSection>
                 <Row>
                     <CustomText font="normal" size="h4" color="#000" style={{ opacity: 0.5 }} value="EASI score" />
-                    <CustomText font="normal" size="h3" color="#333" value="11.40" />
+                    <CustomText font="normal" size="h3" color="#333" value={patient.EASI} />
                 </Row>
                 <Row>
                     <CustomText font="normal" size="h6" color="#000" style={{ opacity: 0.5 }} value="Interpretation" />
-                    <CustomText font="normal" size="h5" color="#333" value="Moderate" />
+                    <CustomText font="normal" size="h5" color="#333" value={patient.interpretation} />
                 </Row>
             </EasiSection>
             <PreScoreSection>
@@ -63,10 +71,10 @@ const ResultLayout = props => {
                         </RadioItem>
                     ))}
                 </Answer>
-                <Alert value="*Required fields." style={{ marginTop: 8 }} />
+                {IGA === null && <Alert value="*Required fields." style={{ marginTop: 8 }} />}
             </IGASection>
             <BSASection>
-                <CustomText size="h6" color="#333" value={`BSA（Body Surface Area）: ${BSA}％`} style={{ marginBottom: 14 }} />
+                <CustomText size="h6" color="#333" value={`BSA（Body Surface Area）: ${sliderValue}％`} style={{ marginBottom: 14 }} />
                 <SliderLabels>
                     <CustomText font="normal" size="h7" color="#333" value="0%"  />
                     <CustomText font="normal" size="h7" color="#333" value="25%" />
@@ -77,13 +85,20 @@ const ResultLayout = props => {
                 <Slider
                     maximumValue={100}
                     onValueChange={onValueChange}
-                    value={0}
+                    onSlidingComplete={onSlidingComplete}
+                    value={sliderValue}
                     thumbTintColor="#525ca3"
                     minimumTrackTintColor="#eeeeee"
                     maximumTrackTintColor="#eeeeee"
-                    style={{ height: 10, borderRadius: 5, backgroundColor: "#eeeeee", marginTop: 10, marginBottom: 40 }}
+                    style={{ height: 10, borderRadius: 5, backgroundColor: "#eeeeee", marginTop: 10, marginBottom: 50 }}
                 />
             </BSASection>
+            <ResultButton onPress={navigateToPatientScreen}>
+                <CustomText font="medium" size="h5" color="#ffffff" value="Generate the report" />
+            </ResultButton>
+            <ResultButton outline onPress={navigateToHead}>
+                <CustomText font="medium" size="h5" color="#bcbc1c" value="Back to calculator" />
+            </ResultButton>
         </ResultContainer>
     )
 };
@@ -99,6 +114,7 @@ const SliderLabels = styled.View`
 
 const ResultContainer = styled.View`
     padding: 0 20px;
+    margin-bottom: 60px;
 `
 
 const EasiSection = styled.View`
@@ -128,9 +144,7 @@ const Answer = styled.View`
     flex-wrap: wrap;
 `
 
-const BSASection = styled.View`
-
-`
+const BSASection = styled.View``
 
 const Row = styled.View`
     flex-direction: row;
@@ -144,4 +158,17 @@ const RadioItem = styled.View`
     margin-top: 10px;
     margin-right: 8px;
     width: 32%;
+`
+
+const ResultButton = styled.TouchableOpacity`
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    width: 235px;
+    height: 56px;
+    border-radius: 32px;
+    background-color: ${props => props.outline ? '#fff' : props.theme.main};
+    border-color: ${props => props.outline ? props.theme.main : 'transparent'};
+    border-width: ${props =>  props.outline ? '2px' : '0px'};
 `

@@ -1,5 +1,8 @@
 import { createAction, handleActions } from 'redux-actions';
 import { useRedux } from 'utils/hooks/redux';
+import { calculatorResult } from './patient';
+
+console.log('calculatorResult', calculatorResult);
 
 const QUERY_MAP = {
     1: 'Head & Neck',
@@ -11,8 +14,7 @@ const QUERY_MAP = {
 
 
 export const setRouteChange = createAction('SET_ROUTE_CHANGE', async param => async (dispatch, getState) => {
-    if(param.query === '5') dispatch(calculatorResult);
-
+    if(param.query === '5') dispatch(calculatorResult());
     return new Promise((resolve, reject) => {
         resolve({ path: param.path, query: QUERY_MAP[param.query] })
         reject("[Action] Dispatch setRouteChange Fail !!")
