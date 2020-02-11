@@ -14,26 +14,33 @@ import Footer from 'components/Common/Footer';
 const submitAction = () => {};
 
 const ReportScreen = ({ navigation }) => {
+    const scrollEl = React.useRef();
     const title = navigation.getParam('type');
     const [type, setType] = React.useState(title);
     const [mailIsShow, setMailIsShow] = React.useState(false);
 
     const [, { setRouteChange }] = useRoute();
-    const [, { setPatientInfomation }] = usePatient();
+    const [, { setPatientInformation }] = usePatient();
+
+    const showMailSection = () => {
+        setMailIsShow(!mailIsShow);
+        if(!mailIsShow) scrollEl.current.scrollToEnd({ animated: true, duration: 500 });
+    };
 
     const switchType = () => {                    
         if(type === 'Text Report') setType('Full Report');
         else setType('Text Report');
-    }
+        scrollEl.current.scrollTo({x: 0, y: 0, animated: true, duration: 500 })
+    };
 
     const buttonTitle = () => type   === 'Text Report' ? 'Full Report' : 'Text Report';
     const handleLayout = () => type === 'Text Report' ? <TextReportLayout />  : <FullReportLayout />;
     return (
-        <ScrollView>
+        <ScrollView ref={scrollEl}>
             <NavigationEvents onDidFocus={payload => setRouteChange({path: payload.state.routeName})} />
             <ScreenTitle>{title}</ScreenTitle>
             <ReportContainer> 
-                <ReportButton onPress={() => setMailIsShow(!mailIsShow)}>
+                <ReportButton onPress={showMailSection}>
                     <CustomText font="medium" size="h6" color="#ffffff" value="Mail me the report" />
                 </ReportButton>
                 <ReportButton outline onPress={switchType}>
@@ -42,7 +49,7 @@ const ReportScreen = ({ navigation }) => {
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <CustomText font="medium" size="h5" color="rgba(0, 0, 0, 0.5)" value="Back to patient information" style={{ textAlign: 'center' }} />
                 </TouchableOpacity>
-                <HerizonLine />
+                <HorizonLine />
                 {handleLayout()}
                 {mailIsShow && <MailLayout />}
             </ReportContainer> 
@@ -90,7 +97,7 @@ const ReportButton = styled.TouchableOpacity`
     border-width: ${props =>  props.outline ? '2px' : '0px'};
 `
 
-const HerizonLine = styled.TouchableOpacity`
+const HorizonLine = styled.View`
     width: 100%;
     height: 2px;
     background-color: #eeeeee;

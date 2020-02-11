@@ -1,23 +1,37 @@
-import React from 'react';
+import React, { Fragment, useState, forwardRef, useImperativeHandle } from 'react';
 import styled from 'styled-components/native';
 import Alert from 'components/Common/Alert';
 
-const Input = ({ onInputChange, onInputSubmit, invalid = false, style }) => {
-    const { text, setText } = React.useState('');
+const Input = forwardRef(({ invalid = false, style, onInputChange, onInputSubmit}, ref) => {
+    const [text, setText] = useState('');
+
+    const handleInputChange = val => {
+        setText(val);
+        onInputChange(val);
+    }
+
+    const clearInput = () => setText('');
+
+    useImperativeHandle(ref, () => {
+        return {
+            clearInput: clearInput
+        };
+    });
 
     return (
-        <React.Fragment>
+        <Fragment>
             <Field 
                 invalid={invalid}
                 onEndEditing={onInputSubmit}
-                onChangeText={onInputChange}
+                onChangeText={handleInputChange}
+                autoCapitalize="none"
                 value={text}
                 style={style}
             />
             {invalid && <Alert value="*Required fields." style={{ marginTop: 8 }} />}
-        </React.Fragment>
+        </Fragment>
     )
-};
+});
 
 const Field = styled.TextInput`
     padding: 8px 16px;

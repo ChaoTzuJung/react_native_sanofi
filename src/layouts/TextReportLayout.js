@@ -60,14 +60,12 @@ const TextReportLayout = props => {
 
 export default TextReportLayout;
 
+const TextReportContainer = styled.View``
+
 const Row  = styled.View`
     flex-direction: row;
     align-items: flex-start;
     margin-bottom: 12px;
-`
-
-const TextReportContainer = styled.View`
-
 `
 
 const Section = styled.View`
