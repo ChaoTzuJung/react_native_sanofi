@@ -30,7 +30,6 @@ const TextReportLayout = props => {
         L: formatBodyData('Lower extremities'),
     };
 
-    const BodyRegions = {};
     return (
         <TextReportContainer>
             <Section> 

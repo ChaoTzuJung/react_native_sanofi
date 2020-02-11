@@ -5,8 +5,9 @@ import styled from 'styled-components/native';
 import { useRoute } from 'models/route';
 import { usePatient } from 'models/patient';
 
-import TextReportLayout from 'layouts/TextReportLayout';
-import FullReportLayout from 'layouts/FullReportLayout';
+import TextReportLayout from '../layouts/TextReportLayout';
+import FullReportLayout from '../layouts/FullReportLayout';
+import MailLayout from '../layouts/MailLayout';
 import CustomText from 'components/Common/CustomText';
 import Footer from 'components/Common/Footer';
 
@@ -15,35 +16,35 @@ const submitAction = () => {};
 const ReportScreen = ({ navigation }) => {
     const title = navigation.getParam('type');
     const [type, setType] = React.useState(title);
+    const [mailIsShow, setMailIsShow] = React.useState(false);
 
     const [, { setRouteChange }] = useRoute();
     const [, { setPatientInfomation }] = usePatient();
 
-    const switchType = () => {
+    const switchType = () => {                    
         if(type === 'Text Report') setType('Full Report');
         else setType('Text Report');
     }
 
+    const buttonTitle = () => type   === 'Text Report' ? 'Full Report' : 'Text Report';
+    const handleLayout = () => type === 'Text Report' ? <TextReportLayout />  : <FullReportLayout />;
     return (
         <ScrollView>
             <NavigationEvents onDidFocus={payload => setRouteChange({path: payload.state.routeName})} />
             <ScreenTitle>{title}</ScreenTitle>
             <ReportContainer> 
-                <ReportButton onPress={switchType}>
+                <ReportButton onPress={() => setMailIsShow(!mailIsShow)}>
                     <CustomText font="medium" size="h6" color="#ffffff" value="Mail me the report" />
                 </ReportButton>
                 <ReportButton outline onPress={switchType}>
-                    <CustomText font="medium" size="h6" color="#bcbc1c" value="View the text report" />
+                    <CustomText font="medium" size="h6" color="#bcbc1c" value={`View the ${buttonTitle()}`} />
                 </ReportButton>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <CustomText font="medium" size="h5" color="rgba(0, 0, 0, 0.5)" value="Back to patient information" style={{ textAlign: 'center' }} />
                 </TouchableOpacity>
                 <HerizonLine />
-                {type === 'Text Report' ? (
-                    <TextReportLayout /> 
-                ) : (
-                    <FullReportLayout />
-                )}
+                {handleLayout()}
+                {mailIsShow && <MailLayout />}
             </ReportContainer> 
             <Footer />
         </ScrollView>

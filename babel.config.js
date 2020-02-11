@@ -8,12 +8,12 @@ module.exports = function(api) {
           "extensions": [".js", ".ios.js", ".android.js"],
           "alias": {
             "@": "./src",
-            screens: './src/screens',
             components: './src/components',
             layouts: './src/layouts',
-            utils: './src/utils',
             models: './src/models',
+            screens: './src/screens',
             store: './src/store',
+            utils: './src/utils',
           }
       }]
     ]

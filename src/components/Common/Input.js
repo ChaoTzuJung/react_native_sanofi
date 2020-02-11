@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import Alert from 'components/Common/Alert';
 
-const Input = ({ onInputChange, onInputSubmit, invalid = false }) => {
+const Input = ({ onInputChange, onInputSubmit, invalid = false, style }) => {
     const { text, setText } = React.useState('');
 
     return (
@@ -12,6 +12,7 @@ const Input = ({ onInputChange, onInputSubmit, invalid = false }) => {
                 onEndEditing={onInputSubmit}
                 onChangeText={onInputChange}
                 value={text}
+                style={style}
             />
             {invalid && <Alert value="*Required fields." style={{ marginTop: 8 }} />}
         </React.Fragment>
