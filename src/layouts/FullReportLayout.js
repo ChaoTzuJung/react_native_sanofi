@@ -3,19 +3,8 @@ import { View , Text, Slider, Dimensions, TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native';
 import { usePatient } from 'models/patient';
 import Accordion from 'components/Common/Accordion';
+import Card from 'components/Common/Card';
 import CustomText from 'components/Common/CustomText';
-import PlusIcon from 'assets/plus.svg';
-import MinusIcon from 'assets/minus.svg';
-
-export const AccordionItem = props => (
-    <View style={{ paddinghorizontal: 16, paddingVertical: 24, backgroundColor: '#fff', width: '100%',  shadowColor: '#000', shadowOffset: {width: 0, height: 0}, shadowOpacity: 0.2, shadowRadius: 4 }}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-            <CustomText font="bold" size="h6" color={props.color} value={props.label} />
-            {props.isCollapsed ? <PlusIcon /> : <MinusIcon />}
-        </View>
-    </View>
-)
-
 
 const FullReportLayout = props => {
     const [{ patient }] = usePatient();
@@ -27,7 +16,19 @@ const FullReportLayout = props => {
         'Gender': patient.gender,
         'Age': patient.age,
     };
-    const cards = [];
+    const cards = ['Head & Neck', 'Trunk', 'Upper extremities', 'Lower extremities'];
+
+    const CARD_MAP = body => {
+        const { symptom,area } = patient[body];
+        return {
+            'Redness/Erythema': symptom.Erythema,
+            'Edema/Papulation': symptom.Erythema,
+            'Scratching/Excoriation': symptom.Erythema,
+            'Lichenification': symptom.Erythema,
+            'Region score': `${area.areaScore}(${area.areaPercent})`,
+        }
+    }
+
     return (
         <FullReportContainer>
             <CustomText font="normal" size="h7" color="#030303" value="Report date:" style={{ textAlign: 'right', opacity: 0.5, lineHeight: 22 }} />
@@ -45,27 +46,45 @@ const FullReportLayout = props => {
             </Section>
             <Accordion defaultIndex={null} onItemClick={console.log}>
                 {
-                    cards.map(card => (
-                        <AccordionItem 
-                            key={card.id}
-                            index={card.id} 
-                            label={symptom.name}
+                    cards.map((card, idx) => (
+                        <Card
+                            key={patient[card].id}
+                            index={patient[card].id} 
+                            label={card}
+                            color={patient[card].color}
                         >
-                            
-                        </AccordionItem>
+                            {Object.entries(CARD_MAP(card)).map((array, idx) => (
+                                <CardRow key={`${array[1]} - ${idx}`}>
+                                    <CustomText font="normal" size="h7" color="#66757d" style={{ lineHeight: 22, marginBottom: 4 }} value={`${array[0]}:`} />
+                                    <CustomText font="normal" size="h7" color="#000000" style={{ lineHeight: 22 }} value={array[1]} />
+                                </CardRow>
+                            ))}
+                        </Card>
                     ))
                 }
             </Accordion>
+            <Row>
+                <CustomText font="normal" size="h5" color="#000" style={{ opacity: 0.5, lineHeight: 38 }} value="EASI score:" />
+                <CustomText font="normal" size="h4" color="#000" value={patient.EASI} style={{ lineHeight: 36 }} />
+            </Row>
         </FullReportContainer>
     )
 };
 
 export default FullReportLayout;
 
+
+const CardRow = styled.View`
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+`
+
 const FullReportContainer = styled.View``
 
 const Row  = styled.View`
     width: 50%;
+    margin-bottom: 20px;
 `
 
 const Section = styled.View`

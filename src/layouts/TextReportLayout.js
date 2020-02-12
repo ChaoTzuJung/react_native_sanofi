@@ -19,7 +19,7 @@ const TextReportLayout = props => {
 
     const formatBodyData = (bodyName) => {
         const { area, symptom, score } = patient[bodyName];
-        return `Er: ${symptom.Erythema} / Ed: ${symptom['Edema / papulation']} / Ex:${symptom.Excoriation} / Li: ${symptom.Lichenification} / Region: ${area.score} (${area.areaPercent}%) / Body: ${score}`
+        return `Er: ${symptom.Erythema} / Ed: ${symptom['Edema / papulation']} / Ex:${symptom.Excoriation} / Li: ${symptom.Lichenification} / Region: ${area.areaScore} (${area.areaPercent}%) / Body: ${score}`
     };
 
     const bodyRegionsKey = ['H', 'U', 'T', 'L'];

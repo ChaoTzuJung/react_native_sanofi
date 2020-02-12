@@ -23,7 +23,7 @@ const MainStack = createStackNavigator(
         },
     },
     {
-        initialRouteName: 'Report',
+        initialRouteName: 'Home',
         defaultNavigationOptions: {
             headerStyle: {
                 backgroundColor: '#FFF',

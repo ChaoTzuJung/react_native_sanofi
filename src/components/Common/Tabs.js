@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import styled from 'styled-components/native';
 import { usePatient } from 'models/patient';
-
+import Alert from 'components/Common/Alert';
 import CustomText from 'components/Common/CustomText';
 import CheckedMainIcon from 'assets/checked-main.svg';
 
@@ -32,6 +32,7 @@ const Tabs = props => {
                             focus={bindIndex === index}
                             index={index}
                             key={label}
+                            invalid={patient[TAB_MAP[index]].completed && index !== '5' && props.checkFlag}
                             onPress={() => changeTab(index)} 
                         >
                             {patient[TAB_MAP[index]].completed ? <CheckedMainIcon width={16} height={16}/> : (
@@ -41,6 +42,7 @@ const Tabs = props => {
                             )}
                             <CustomText size="h7" color={bindIndex === index ? "#000000" : "#a77f7f"} value={label} style={{ lineHeight: 22 }} />
                             {score !== null && <CustomText size="h6" color={bindIndex === index ? "#000000" : "rgba(0, 0, 0, 0.5)"} value={`Score: ${score}`} style={{ lineHeight: 24 }} />}
+                            {patient[TAB_MAP[index]].completed && index !== '5' && props.checkFlag && <Alert value="*Required fields." style={{ marginTop: 20 }} />}
                         </TabMenuHorizontalItem>
                     ))}
                 </TabMenuHorizontal>
@@ -145,6 +147,8 @@ const TabMenuHorizontalItem = styled(TabItem)`
     margin-bottom: 40px;
     margin-left:  8px;
     padding: 8px;
+    border-width: 1px;
+    border-color: ${props => props.invalid ? props.theme.warn : 'transparent'}
 `
 
 const TabItemText = styled.Text`

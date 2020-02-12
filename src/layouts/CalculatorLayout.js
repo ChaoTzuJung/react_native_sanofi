@@ -3,7 +3,8 @@ import { View , Text } from 'react-native';
 import styled from 'styled-components/native';
 import { usePatient } from 'models/patient';
 import CustomText from 'components/Common/CustomText';
-import Accordion, { AccordionItem } from 'components/Common/Accordion';
+import Accordion from 'components/Common/Accordion';
+import AccordionItem from 'components/Common/AccordionItem';
 import RadioCardList from 'components/Common/RadioCardList';
 
 import { symptomData } from 'utils/resources/static';

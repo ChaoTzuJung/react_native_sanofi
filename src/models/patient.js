@@ -204,6 +204,7 @@ const reducer = {
             IGA: null,
             'Head & Neck': {
                 id: '1',
+                color: '#f0dd00',
                 area: {
                     areaScore: null,
                     areaPercent: null,
@@ -219,6 +220,7 @@ const reducer = {
             },
             'Upper extremities': {
                 id: '2',
+                color: '#00a590',
                 area: {
                     areaScore: null,
                     areaPercent: null,
@@ -234,6 +236,7 @@ const reducer = {
             },
             'Trunk': {
                 id: '3',
+                color: '#fbba00',
                 area: {
                     areaScore: null,
                     areaPercent: null,
@@ -249,6 +252,7 @@ const reducer = {
             },
             'Lower extremities': {
                 id: '4',
+                color: '#bcbc1c',
                 area: {
                     areaScore: null,
                     areaPercent: null,
