@@ -16,35 +16,53 @@ const TAB_MAP = {
 
 const Tabs = props => {
     const [bindIndex, setBindIndex] = React.useState(props.defaultIndex);
+    const [showAlert, setShowAlert] = React.useState(false);
     const [{ patient }] = usePatient();
+    const allCompleted = patient['Head & Neck'].completed && patient['Upper extremities'].completed && patient['Trunk'].completed && patient['Lower extremities'].completed;
+
     const changeTab = newIndex => {
         if (typeof props.onTabClick === 'function') props.onTabClick(newIndex);
+        if(newIndex === '5' && !allCompleted) {
+            setShowAlert(true);
+            return;
+        }
         setBindIndex(newIndex);
+        setShowAlert(false);
     };
-    const items = props.children.filter(item => item.type.name === 'TabItem');
+
+    if(process.env.NODE_ENV !== 'production') {
+        const items = props.children.filter(item => item.type.name === 'TabItem');
+    } else {
+        const items = props.children
+    }
 
     if (props.horizontal) {
         return (
             <View>
-                <TabMenuHorizontal horizontal={true} showsHorizontalScrollIndicator={false} >
-                    {items.map(({ props: { index, label, score } }) => (
-                        <TabMenuHorizontalItem
-                            focus={bindIndex === index}
-                            index={index}
-                            key={label}
-                            invalid={patient[TAB_MAP[index]].completed && index !== '5' && props.checkFlag}
-                            onPress={() => changeTab(index)} 
-                        >
-                            {patient[TAB_MAP[index]].completed ? <CheckedMainIcon width={16} height={16}/> : (
-                                <CircleOrder focus={bindIndex === index}>
-                                    <CustomText color={bindIndex === index ? "#525ca3" : "#7c7c7c"} value={index} style={{ fontSize: 10 }} />
-                                </CircleOrder>
-                            )}
-                            <CustomText size="h7" color={bindIndex === index ? "#000000" : "#a77f7f"} value={label} style={{ lineHeight: 22 }} />
-                            {score !== null && <CustomText size="h6" color={bindIndex === index ? "#000000" : "rgba(0, 0, 0, 0.5)"} value={`Score: ${score}`} style={{ lineHeight: 24 }} />}
-                            {patient[TAB_MAP[index]].completed && index !== '5' && props.checkFlag && <Alert value="*Required fields." style={{ marginTop: 20 }} />}
-                        </TabMenuHorizontalItem>
-                    ))}
+                <TabMenuHorizontal horizontal={true} showsHorizontalScrollIndicator={false}>
+                    {items.map(({ props: { index, label, score } }) => {
+                        const tabCompleted = patient[TAB_MAP[index]].completed;
+                        const isValid = !tabCompleted && index !== '5' && showAlert;
+
+                        return (
+                            <TabMenuHorizontalItem
+                                focus={bindIndex === index}
+                                index={index}
+                                key={label}
+                                valid={isValid}
+                                onPress={() => changeTab(index)} 
+                            >
+                                {tabCompleted ? <CheckedMainIcon width={16} height={16}/> : (
+                                    <CircleOrder focus={bindIndex === index}>
+                                        <CustomText color={bindIndex === index ? "#525ca3" : "#7c7c7c"} value={index} style={{ fontSize: 10 }} />
+                                    </CircleOrder>
+                                )}
+                                <CustomText size="h7" color={bindIndex === index ? "#000000" : "#a77f7f"} value={label} style={{ lineHeight: 22 }} />
+                                {score !== null && <CustomText size="h6" color={bindIndex === index ? "#000000" : "rgba(0, 0, 0, 0.5)"} value={`Score: ${score}`} style={{ lineHeight: 24 }} />}
+                                {isValid && <Alert value="*Required fields." style={{ marginTop: 20 }} />}
+                            </TabMenuHorizontalItem>
+                        )
+                    })}
                 </TabMenuHorizontal>
                 <TabView>
                     {items.map(({ props }) => (
@@ -83,7 +101,7 @@ const Tabs = props => {
                     ))}
                 </TabView>
             </View>
-        );        
+        );
     }
 }
 
@@ -148,7 +166,7 @@ const TabMenuHorizontalItem = styled(TabItem)`
     margin-left:  8px;
     padding: 8px;
     border-width: 1px;
-    border-color: ${props => props.invalid ? props.theme.warn : 'transparent'}
+    border-color: ${props => props.valid ? props.theme.warn : 'transparent'};
 `
 
 const TabItemText = styled.Text`

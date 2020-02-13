@@ -2,13 +2,13 @@ import React from 'react';
 import { View , Text } from 'react-native';
 import styled from 'styled-components/native';
 import { usePatient } from 'models/patient';
+import { SymptomProvider } from '../context/SymptomContext';
 import CustomText from 'components/Common/CustomText';
 import Accordion from 'components/Common/Accordion';
 import AccordionItem from 'components/Common/AccordionItem';
 import RadioCardList from 'components/Common/RadioCardList';
 
 import { symptomData } from 'utils/resources/static';
-
 import NeckFront from 'assets/neck-front.svg'; 
 import NeckBack from 'assets/neck-back.svg';
 import ArmFront from 'assets/arm-front.svg'; 
@@ -17,8 +17,6 @@ import BodyFront from 'assets/body-front.svg';
 import BodyBack from 'assets/body-back.svg';
 import LegFront from 'assets/leg-front.svg'; 
 import LegBack from 'assets/leg-back.svg';
-
-export const symptomContext = React.createContext(null);
 
 const SvgComponent = ({ name }) => {
     let Component = <Text>沒圖片</Text>;
@@ -117,7 +115,7 @@ const CalculatorLayout = props => {
                 <CustomText color="#a77f7f" value="*Given each respective body region a score between 0 and 6 based on the estimated percentage involment." style={{ lineHeight: 20 }} />
                 <SubTitle>EASI lesion severity atlas</SubTitle>
             </View>
-            <symptomContext.Provider value={[symptomScore, updateSymptomScore, props.title]}>
+            <SymptomProvider value={[symptomScore, updateSymptomScore, props.title]}>
                 <Accordion defaultIndex={null} onItemClick={console.log}>
                     {
                         symptomData.map(symptom => (
@@ -131,7 +129,7 @@ const CalculatorLayout = props => {
                         ))
                     }
                 </Accordion>
-            </symptomContext.Provider>
+            </SymptomProvider>
         </View>
     )
 }

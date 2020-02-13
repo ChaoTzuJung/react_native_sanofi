@@ -9,13 +9,11 @@ const Carousel = ({ data, navigation, render }) => {
     return null;
   }
 
-  const [checkFlag, setCheckFlag] = useState(false);
   const [{ patient }, { setPatientName }] = usePatient();
   const [, { setRouteChange }] = useRoute();
 
   const onTabClick = newIndex => {
     setRouteChange({path: 'Calculator', query: newIndex});
-    if(newIndex === '5') setCheckFlag(true);
   }
 
   return (
@@ -27,7 +25,6 @@ const Carousel = ({ data, navigation, render }) => {
                 label={item.title}
                 index={item.id}
                 score={patient[item.title] ? patient[item.title].score : null}
-                checkFlag={checkFlag}
               >
                 {render(item)}
               </TabItem>

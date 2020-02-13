@@ -2,6 +2,7 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import styled from 'styled-components/native';
+import { usePatient } from 'models/patient';
 import { useRoute } from 'models/route';
 
 import CalculatorLayout from 'layouts/CalculatorLayout';
@@ -13,14 +14,21 @@ import Footer from 'components/Common/Footer';
 
 import { tabData } from 'utils/resources/static';
 
-const CalculatorScreen = ({ navigation, theme, patient }) => {
+const CalculatorScreen = ({ navigation }) => {
     const [, { setRouteChange }] = useRoute();
+
     return (
         <ScrollView>
             <NavigationEvents onDidFocus={payload => setRouteChange({path: payload.state.routeName})} />
             <ScreenTitle>Calculator</ScreenTitle>
             <Description>Determine the severity of atopic dermatitis in each of the four body regions.</Description>
-            <Carousel data={tabData} render={props => props.title !== "Result" ? <CalculatorLayout {...props} /> : <ResultLayout {...props} navigation={navigation}  />} />
+            <Carousel 
+                data={tabData}
+                render={props => props.title === "Result"
+                    ? <ResultLayout {...props} navigation={navigation} />
+                    : <CalculatorLayout {...props} />
+                }
+            />
             <Footer />
         </ScrollView>
     )

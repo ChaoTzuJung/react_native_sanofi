@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import RadioCard from 'components/Common/RadioCard';
