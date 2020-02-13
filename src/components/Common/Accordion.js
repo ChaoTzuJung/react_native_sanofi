@@ -11,12 +11,14 @@ const Accordion = (props) => {
         if (itemIndex !== bindIndex) setBindIndex(itemIndex);
     };
 
+    let cards;
+    let items;
     if(process.env.NODE_ENV !== 'production') {
-        const cards = props.children.filter(item => item.type.name === 'Card');
-        const items = props.children.filter(item => item.type.name === 'AccordionItem');
+        cards = props.children.filter(item => item.type.name === 'Card');
+        items = props.children.filter(item => item.type.name === 'AccordionItem');
     } else {
-        const cards = props.children;
-        const items = props.children;
+        cards = props.children;
+        items = props.children;
     }
 
     const renderCard = props => (

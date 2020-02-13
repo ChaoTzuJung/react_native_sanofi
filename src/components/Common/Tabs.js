@@ -30,10 +30,11 @@ const Tabs = props => {
         setShowAlert(false);
     };
 
+    let items;
     if(process.env.NODE_ENV !== 'production') {
-        const items = props.children.filter(item => item.type.name === 'TabItem');
+        items = props.children.filter(item => item.type.name === 'TabItem');
     } else {
-        const items = props.children
+        items = props.children
     }
 
     if (props.horizontal) {
