@@ -27,7 +27,7 @@ const RadioCard = ({ name, index, label, image, info, imageWidth = '300px', isSe
 
     return (
         <RadioCardContainer width={imageWidth}>
-            <RadioCardTop height={imageWidth} onPress={() => navigation.navigate('MyModal')}>
+            <RadioCardTop height={imageWidth} onPress={() => navigation.navigate('MyModal', { id: index, name })}>
                 <Image source={image} style={{ width: '100%', height: '100%' }}/>
                 <ResizeIcon style={{ position: 'absolute', top: 20, right: 20 }} />
             </RadioCardTop>

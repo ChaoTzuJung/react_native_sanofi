@@ -10,16 +10,124 @@ import BackTrunk from 'assets/back-trunk-sm.svg';
 import FrontLower from 'assets/front-lower-sm.svg';
 import BackLower from 'assets/back-lower-sm.svg';
 
+
+export const symptomImage = {
+    'Erythema': [
+        [   
+            require('assets/Erythema_Clear_Skin.jpg'),
+            require('assets/Erythema_Clear_Skin.jpg'),
+            require('assets/Erythema_Clear_Skin.jpg'),
+            require('assets/Erythema_Clear_Skin.jpg')
+        ],
+        [   
+            require('assets/Erythema_Mild.jpg'),
+            require('assets/Erythema_Mild.jpg'),
+            require('assets/Erythema_Mild.jpg'),
+            require('assets/Erythema_Mild.jpg')
+        ],
+        [   
+            require('assets/Erythema_Moderate.jpg'),
+            require('assets/Erythema_Moderate.jpg'),
+            require('assets/Erythema_Moderate.jpg'),
+            require('assets/Erythema_Moderate.jpg')
+        ],
+        [   
+            require('assets/Erythema_Severe.jpg'),
+            require('assets/Erythema_Severe.jpg'),
+            require('assets/Erythema_Severe.jpg'),
+            require('assets/Erythema_Severe.jpg')
+        ],
+    ],
+    'Edema / papulation': [
+        [
+            require('assets/Edema_Clear_Skin.jpg'),
+            require('assets/Edema_Clear_Skin.jpg'),
+            require('assets/Edema_Clear_Skin.jpg'),
+            require('assets/Edema_Clear_Skin.jpg')
+        ],
+        [
+            require('assets/Edema_Mild.jpg'),
+            require('assets/Edema_Mild.jpg'),
+            require('assets/Edema_Mild.jpg'),
+            require('assets/Edema_Mild.jpg')
+        ],
+        [
+            require('assets/Edema_Moderate.jpg'),
+            require('assets/Edema_Moderate.jpg'),
+            require('assets/Edema_Moderate.jpg'),
+            require('assets/Edema_Moderate.jpg')
+        ],
+        [
+            require('assets/Edema_Severe.jpg'),
+            require('assets/Edema_Severe.jpg'),
+            require('assets/Edema_Severe.jpg'),
+            require('assets/Edema_Severe.jpg')
+        ],
+    ],
+    'Excoriation': [
+        [
+            require('assets/Excoriation_Clear_Skin.jpg'),
+            require('assets/Excoriation_Clear_Skin.jpg'),
+            require('assets/Excoriation_Clear_Skin.jpg'),
+            require('assets/Excoriation_Clear_Skin.jpg')
+        ],
+        [
+            require('assets/Excoriation_Mild.jpg'),
+            require('assets/Excoriation_Mild.jpg'),
+            require('assets/Excoriation_Mild.jpg'),
+            require('assets/Excoriation_Mild.jpg')
+        ],
+        [
+            require('assets/Excoriation_Moderate.jpg'),
+            require('assets/Excoriation_Moderate.jpg'),
+            require('assets/Excoriation_Moderate.jpg'),
+            require('assets/Excoriation_Moderate.jpg')
+        ],
+        [
+            require('assets/Excoriation_Severe.jpg'),
+            require('assets/Excoriation_Severe.jpg'),
+            require('assets/Excoriation_Severe.jpg'),
+            require('assets/Excoriation_Severe.jpg')
+        ],
+    ],
+    'Lichenification': [
+        [
+            require('assets/Lichenification_Clear_Skin.jpg'),
+            require('assets/Lichenification_Clear_Skin.jpg'),
+            require('assets/Lichenification_Clear_Skin.jpg'),
+            require('assets/Lichenification_Clear_Skin.jpg')
+        ],
+        [
+            require('assets/Lichenification_Mild.jpg'),
+            require('assets/Lichenification_Mild.jpg'),
+            require('assets/Lichenification_Mild.jpg'),
+            require('assets/Lichenification_Mild.jpg')
+        ],
+        [
+            require('assets/Lichenification_Moderate.jpg'),
+            require('assets/Lichenification_Moderate.jpg'),
+            require('assets/Lichenification_Moderate.jpg'),
+            require('assets/Lichenification_Moderate.jpg')
+        ],
+        [
+            require('assets/Lichenification_Severe.jpg'),
+            require('assets/Lichenification_Severe.jpg'),
+            require('assets/Lichenification_Severe.jpg'),
+            require('assets/Lichenification_Severe.jpg')
+        ],
+    ],
+}
+
 export const symptomData = [
     {
         id: '1',
         name: 'Erythema',
         score: 0,
         data: [
-            {label: 'None', score: 0, image: require('assets/Erythema_Clear_Skin.jpg'), info: null},
-            {label: 'Mild', score: 1, image: require('assets/Erythema_Mild.jpg'), info: 'Faintly detectable, pink'},
-            {label: 'Moderate', score: 2, image: require('assets/Erythema_Moderate.jpg'), info: 'Clearly distinguishable dull red'},
-            {label: 'Severe', score: 3, image: require('assets/Erythema_Severe.jpg'), info: 'Deep dark or fiery bright red'},
+            {label: 'None', score: 0, image: symptomImage['Erythema'][0][0], info: null},
+            {label: 'Mild', score: 1, image: symptomImage['Erythema'][1][0], info: 'Faintly detectable, pink'},
+            {label: 'Moderate', score: 2, image: symptomImage['Erythema'][2][0], info: 'Clearly distinguishable dull red'},
+            {label: 'Severe', score: 3, image: symptomImage['Erythema'][3][0], info: 'Deep dark or fiery bright red'},
         ],
     },
     {
@@ -27,10 +135,10 @@ export const symptomData = [
         name: 'Edema / papulation',
         score: 0,
         data: [
-            {label: 'None', score: 0, image: require('assets/Edema_Clear_Skin.jpg'), info: null},
-            {label: 'Mild', score: 1, image: require('assets/Edema_Mild.jpg'), info: 'Barely perceptible elevation'},
-            {label: 'Moderate', score: 2, image: require('assets/Edema_Moderate.jpg'), info: 'Clearly perceptible elevation but not prominent'},
-            {label: 'Severe', score: 3, image: require('assets/Edema_Severe.jpg'), info: 'Prominent elevation'},
+            {label: 'None', score: 0, image: symptomImage['Edema / papulation'][0][0], info: null},
+            {label: 'Mild', score: 1, image: symptomImage['Edema / papulation'][1][0], info: 'Barely perceptible elevation'},
+            {label: 'Moderate', score: 2, image: symptomImage['Edema / papulation'][2][0], info: 'Clearly perceptible elevation but not prominent'},
+            {label: 'Severe', score: 3, image: symptomImage['Edema / papulation'][3][0], info: 'Prominent elevation'},
         ],
     },
     {
@@ -38,10 +146,10 @@ export const symptomData = [
         name: 'Excoriation',
         score: 0,
         data: [
-            {label: 'None', score: 0, image: require('assets/Excoriation_Clear_Skin.jpg'), info: null},
-            {label: 'Mild', score: 1, image: require('assets/Excoriation_Mild.jpg'), info: 'Scant'},
-            {label: 'Moderate', score: 2, image: require('assets/Excoriation_Moderate.jpg'), info: 'Many superficial and/or some deep excoriations'},
-            {label: 'Severe', score: 3, image: require('assets/Excoriation_Severe.jpg'), info: 'Extensive superficial and/or many deep excoriations'},
+            {label: 'None', score: 0, image: symptomImage['Excoriation'][0][0], info: null},
+            {label: 'Mild', score: 1, image: symptomImage['Excoriation'][1][0], info: 'Scant'},
+            {label: 'Moderate', score: 2, image: symptomImage['Excoriation'][2][0], info: 'Many superficial and/or some deep excoriations'},
+            {label: 'Severe', score: 3, image: symptomImage['Excoriation'][3][0], info: 'Extensive superficial and/or many deep excoriations'},
         ],
     },
     {
@@ -49,10 +157,10 @@ export const symptomData = [
         name: 'Lichenification',
         score: 0,
         data: [
-            {label: 'None', score: 0, image: require('assets/Lichenification_Clear_Skin.jpg'), info: null },
-            {label: 'Mild', score: 1, image: require('assets/Lichenification_Mild.jpg'), info: 'Scant'},
-            {label: 'Moderate', score: 2, image: require('assets/Lichenification_Moderate.jpg'), info: 'Thickened skin with exaggerated markings and/or some prurigo nodules'},
-            {label: 'Severe', score: 3, image: require('assets/Lichenification_Severe.jpg'), info: 'Prominent thickening, exaggerated markings creating deep furrows and/or many prurigo nodules'},
+            {label: 'None', score: 0, image: symptomImage['Lichenification'][0][0], info: null },
+            {label: 'Mild', score: 1, image: symptomImage['Lichenification'][1][0], info: 'Scant'},
+            {label: 'Moderate', score: 2, image: symptomImage['Lichenification'][2][0], info: 'Thickened skin with exaggerated markings and/or some prurigo nodules'},
+            {label: 'Severe', score: 3, image: symptomImage['Lichenification'][3][0], info: 'Prominent thickening, exaggerated markings creating deep furrows and/or many prurigo nodules'},
         ],
     }
 ];
@@ -166,4 +274,4 @@ export const bodyData = {
             component: BackLower
         }
     ],
-}
+};
