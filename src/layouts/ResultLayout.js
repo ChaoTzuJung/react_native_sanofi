@@ -21,11 +21,16 @@ const ResultLayout = props => {
         setSliderValue(patient.BSA);
     }, [patient.BSA])
 
-    const onRadioChange = id => setIGA(id);
+    const onRadioChange = id => {
+        console.log(id);
+        setIGA(id);
+        setPatientIGA(id);
+    }
     const onSlidingComplete = val => setBSA(val);
     const onValueChange = val => setSliderValue(Math.floor(val));
     const navigateToPatientScreen = () => {
         if(IGA === null) return alert('Please fill in IGA field!');
+        setPatientBSA(BSA);
         props.navigation.navigate('Patient');
     }
 
@@ -96,7 +101,7 @@ const ResultLayout = props => {
             <ResultButton onPress={navigateToPatientScreen}>
                 <CustomText font="medium" size="h5" color="#ffffff" value="Generate the report" />
             </ResultButton>
-            <ResultButton outline onPress={navigateToHead}>
+            <ResultButton outline onPress={navigateToHead} onPress={() => navigateToHead()}>
                 <CustomText font="medium" size="h5" color="#bcbc1c" value="Back to calculator" />
             </ResultButton>
         </ResultContainer>

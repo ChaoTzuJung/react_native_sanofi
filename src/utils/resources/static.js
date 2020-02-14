@@ -10,6 +10,12 @@ import BackTrunk from 'assets/back-trunk-sm.svg';
 import FrontLower from 'assets/front-lower-sm.svg';
 import BackLower from 'assets/back-lower-sm.svg';
 
+export const SCORE_MAP = {
+    0: 'None: 0',
+    1: 'Mid: 1',
+    2: 'Moderate: 2',
+    3: 'Severe: 3',
+};
 
 export const symptomImage = {
     'Erythema': [

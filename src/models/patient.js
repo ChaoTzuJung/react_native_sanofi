@@ -179,7 +179,7 @@ const reducer = {
                 ...state,
                 IGA: action.payload.IGA,
             }),
-            SET_PATIENT_IGA_FULFILLED: (state, action) => ({
+            SET_PATIENT_BSA_FULFILLED: (state, action) => ({
                 ...state,
                 BSA: action.payload.BSA,
             }),

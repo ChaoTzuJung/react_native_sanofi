@@ -6,6 +6,16 @@ import { AppContainer } from '@/screens';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 
+if (!__DEV__) {
+  global.console = {
+    info: () => {},
+    log: () => {},
+    warn: () => {},
+    debug: () => {},
+    error: () => {},
+  };
+}
+
 const fetchFonts = async () => (
   await Font.loadAsync({
     'ITCAvantGardeProBk': require('assets/fonts/ITCAvantGardePro-Bk.otf'),

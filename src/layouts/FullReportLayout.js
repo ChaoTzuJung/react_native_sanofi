@@ -5,6 +5,7 @@ import { usePatient } from 'models/patient';
 import Accordion from 'components/Common/Accordion';
 import Card from 'components/Common/Card';
 import CustomText from 'components/Common/CustomText';
+import { SCORE_MAP } from 'utils/resources/static';
 
 const FullReportLayout = props => {
     const [{ patient }] = usePatient();
@@ -55,8 +56,8 @@ const FullReportLayout = props => {
                         >
                             {Object.entries(CARD_MAP(card)).map((array, idx) => (
                                 <CardRow key={`${array[1]} - ${idx}`}>
-                                    <CustomText font="normal" size="h7" color="#66757d" style={{ lineHeight: 22, marginBottom: 4 }} value={`${array[0]}:`} />
-                                    <CustomText font="normal" size="h7" color="#000000" style={{ lineHeight: 22 }} value={array[1]} />
+                                    <CustomText font="normal" size="h7" color="#66757d" style={{ lineHeight: 22, paddingRight: 24, marginBottom: 4 }} value={`${array[0]}:`} />
+                                    <CustomText font="normal" size="h7" color="#000000" style={{ lineHeight: 22, paddingRight: 24 }} value={SCORE_MAP[array[1]]} />
                                 </CardRow>
                             ))}
                         </Card>

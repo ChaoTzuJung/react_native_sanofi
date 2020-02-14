@@ -32,7 +32,7 @@ const PatientScreen = ({ navigation }) => {
 
     const submitAction = type => {
         setChecking(true);
-        if(name.length <= 0 && isOnCheck) return;
+        if(name.length <= 0) return;
         else navigateToReportScreen(type);
     }
 
