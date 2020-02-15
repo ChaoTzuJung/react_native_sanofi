@@ -6,6 +6,7 @@ import CalculatorScreen from './CalculatorScreen';
 import PatientScreen from './PatientScreen';
 import ReportScreen from './ReportScreen';
 import ModalScreen from './ModalScreen';
+import TableModalScreen from './TableModalScreen';
 
 const MainStack = createStackNavigator(
     {
@@ -45,6 +46,9 @@ const RootStack = createStackNavigator(
         },
         MyModal: {
             screen: ModalScreen,
+        },
+        TableModal: {
+            screen: TableModalScreen,
         },
     },
     {

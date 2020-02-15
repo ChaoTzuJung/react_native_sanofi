@@ -17,9 +17,7 @@ const ModalScreen = ({ navigation }) => {
     const [slider1ActiveSlide, setSlider1ActiveSlide] = React.useState(SLIDER_1_FIRST_ITEM);
     const CarouselEl = React.useRef(null);
     const { width: screenWidth } = Dimensions.get("window");
-    const _renderItem = ({item, index}) => {
-        return <Image source={item}  style={{ width: screenWidth, height: screenWidth }} />
-    };
+    const _renderItem = ({item, index}) => <Image source={item}  style={{ width: screenWidth, height: screenWidth }} />;
 
     return (
         <ModalContainer>

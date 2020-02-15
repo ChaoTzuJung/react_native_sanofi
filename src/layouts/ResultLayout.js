@@ -59,7 +59,9 @@ const ResultLayout = props => {
             <IGASection>
                 <Title>
                     <CustomText size="h6" color="#333" value="IGA ( Investigator Global Assessment)" style={{ marginRight: 16 }} />
-                    <QuestionIcon />
+                    <TouchableOpacity onPress={() => navigation.navigate('TableModal')}>
+                        <QuestionIcon />
+                    </TouchableOpacity>
                 </Title>
                 <Answer>
                     {igaLabel.map((key, idx) => (
