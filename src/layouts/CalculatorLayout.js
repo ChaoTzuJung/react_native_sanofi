@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View , Text } from 'react-native';
 import styled from 'styled-components/native';
 import { usePatient } from 'models/patient';
@@ -52,22 +52,22 @@ const CalculatorLayout = props => {
         Lichenification: '0',
     });
 
-    const [, { setPatientArea, calculatorBodyScore, checkTabStatus }] = usePatient();
-
-    const onTextChange = event => {
-        const percent = event;
+    // 當Back To Home 再回到 Calculator 後仍能 sync store data
+    useEffect(() => {
+        const percent = patient[props.title].area.areaPercent;
+        const symptom = patient[props.title].symptom;
         setText(percent);
-    }
+        calculatePoint(percent);
+        updateSymptomScore(() => ({
+            ...symptomScore,
+            ...symptom,
+        }));
+    }, [])
 
-    const submitAreaScore = async score => {
-        setAreaPoint(score);
-        await setPatientArea({ areaScore: score, areaPercent: text});
-        await calculatorBodyScore(props.title);
-        await checkTabStatus(props.title);
-    }
-    const onTextSubmit = event => {
-        const score = parseInt(text);
+    const [{ patient }, { setPatientArea, calculatorBodyScore, checkTabStatus }] = usePatient();
 
+    const calculatePoint = percent => {
+        const score = parseInt(percent);
         if (score >= 90 && score <= 100) submitAreaScore(6);
         if (score >= 70 && score <= 89) submitAreaScore(5);
         if (score >= 50 && score <= 69) submitAreaScore(4);
@@ -88,6 +88,20 @@ const CalculatorLayout = props => {
             setAreaPoint(0);
         }
     };
+
+    const onTextChange = event => {
+        const percent = event;
+        setText(percent);
+    }
+
+    const submitAreaScore = async score => {
+        setAreaPoint(score);
+        await setPatientArea({ areaScore: score, areaPercent: text});
+        await calculatorBodyScore(props.title);
+        await checkTabStatus(props.title);
+    }
+
+    const onTextSubmit = event => calculatePoint(text);
 
     return (
         <View> 
