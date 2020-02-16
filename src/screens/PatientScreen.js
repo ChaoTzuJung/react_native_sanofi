@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ScrollView } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import styled from 'styled-components/native';
@@ -14,15 +14,24 @@ const ages = ['0-5', '6-11', '12-17', '18-30', '30-40', '40-50', '50-60', '60+',
 const genders =['Male', 'Female', 'Unknown'];
 const PatientScreen = ({ navigation }) => {
 
-    const [name, setName] = React.useState('');
-    const [ageIndex, setAgeIndex] = React.useState(null);
-    const [genderIndex, setGenderIndex] = React.useState(null);
-    const [isOnCheck, setChecking] = React.useState(false);
+    const [name, setName] = useState('');
+    const [ageIndex, setAgeIndex] = useState(null);
+    const [genderIndex, setGenderIndex] = useState(null);
+    const [isOnCheck, setChecking] = useState(false);
     const [, { setRouteChange }] = useRoute();
-    const [, { setPatientInfomation }] = usePatient();
+    const [{ patient }, { setPatientInformation }] = usePatient();
+    const InputEl = useRef(null);
+    useEffect(() => {
+        const { patientName, age, gender } = patient;
+        patientName && InputEl.current.setText(patientName);
+        patientName && setName(patientName);
+        age && setAgeIndex(ages.indexOf(age));
+        gender && setGenderIndex(genders.indexOf(gender));
+    }, []);
 
+    const handleInputChange = value => setName(value);
     const navigateToReportScreen = type => {
-        setPatientInfomation({
+        setPatientInformation({
             name,
             age: ageIndex !== null ? ages[ageIndex] : 'unknown',
             gender: genderIndex !== null ? genders[genderIndex] : 'Unknown',
@@ -50,7 +59,8 @@ const PatientScreen = ({ navigation }) => {
                     <CustomText size="h6" color="#333333" value="Patient Identifier/Number:" style={{ marginBottom: 10 }} />
                     <Input
                         invalid={name.length <= 0 && isOnCheck}
-                        onInputChange={(value) => setName(value)}
+                        onInputChange={handleInputChange}
+                        ref={InputEl}
                     />
                 </Row>
                 <Row>
@@ -105,7 +115,8 @@ PatientScreen.navigationOptions = ({ navigation }) => {
     const c = navigation.state.params || {};
 
     return {
-        headerTitle: () => <CustomText font="normal" size="h6" color="#333333" value="Patient" />
+        headerTitle: () => <CustomText font="normal" size="h6" color="#333333" value="Patient" />,
+        headerTitleAlign: "center"
     };
 };
 

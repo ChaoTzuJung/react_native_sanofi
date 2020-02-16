@@ -2,8 +2,6 @@ import { createAction, handleActions } from 'redux-actions';
 import { useRedux } from 'utils/hooks/redux';
 import { calculatorResult } from './patient';
 
-console.log('calculatorResult', calculatorResult);
-
 const QUERY_MAP = {
     1: 'Head & Neck',
     2: 'Upper extremities',

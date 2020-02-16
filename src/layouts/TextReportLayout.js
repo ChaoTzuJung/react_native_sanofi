@@ -5,13 +5,12 @@ import { usePatient } from 'models/patient';
 import CustomText from 'components/Common/CustomText';
 const TextReportLayout = props => {
     const [{ patient }] = usePatient()
-    const informationKey = ['Patient', 'Age', 'Gender', 'Report date', 'EASI score', 'BSA', 'Interpretation', 'IGA' ];
+    const informationKey = ['Patient', 'Age', 'Gender', 'Report date', 'BSA', 'Interpretation', 'IGA' ];
     const informationValue = {
         'Patient': patient.patientName,
         'Age': patient.age,
         'Gender': patient.gender,
         'Report date': patient.reportDate,
-        'EASI score': patient.EASI,
         'BSA': patient.BSA,
         'Interpretation': patient.interpretation,
         'IGA': patient.IGA,

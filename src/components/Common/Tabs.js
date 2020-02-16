@@ -6,6 +6,7 @@ import Alert from 'components/Common/Alert';
 import CustomText from 'components/Common/CustomText';
 import CheckedMainIcon from 'assets/checked-main.svg';
 import { symptomImage } from 'utils/resources/static';
+import { SCORE_MAP } from 'utils/resources/static';
 
 const TAB_MAP = {
     1: 'Head & Neck',
@@ -13,13 +14,6 @@ const TAB_MAP = {
     3: 'Trunk',
     4: 'Lower extremities',
     5: 'Result',
-}
-
-const SCORE_MAP = {
-    0: 'None: 0',
-    1: 'Mid: 1',
-    2: 'Moderate: 2',
-    3: 'Severe: 3',
 }
 
 const SYMPTOM_MAP = {
@@ -71,7 +65,7 @@ const TabScore = ({ items, showAlert, bindIndex, changeTab }) => {
                             valid={isValid}
                             onPress={() => changeTab(index)} 
                         >
-                            {tabCompleted ? <CheckedMainIcon width={16} height={16}/> : (
+                            {tabCompleted ? <CheckedMainIcon width={16} height={16} style={{ marginBottom: 8 }}/> : (
                                 <CircleOrder focus={bindIndex === index}>
                                     <CustomText color={bindIndex === index ? "#525ca3" : "#7c7c7c"} value={index} style={{ fontSize: 10 }} />
                                 </CircleOrder>
@@ -131,10 +125,10 @@ const Tabs = props => {
 
     const changeTab = newIndex => {
         if (typeof props.onTabClick === 'function') props.onTabClick(newIndex);
-        if(newIndex === '5' && !allCompleted) {
-            setShowAlert(true);
-            return;
-        }
+        // if(newIndex === '5' && !allCompleted) {
+        //     setShowAlert(true);
+        //     return;
+        // }
         setBindIndex(newIndex);
         setShowAlert(false);
     };

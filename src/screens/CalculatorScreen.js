@@ -38,7 +38,8 @@ CalculatorScreen.navigationOptions = ({ navigation }) => {
     const c = navigation.state.params || {};
 
     return {
-        headerTitle: () => <CustomText font="normal" size="h6" color="#333333" value="Calculator" />
+        headerTitle: () => <CustomText font="normal" size="h6" color="#333333" value="Calculator" />,
+        headerTitleAlign: "center"
     };
 };
 

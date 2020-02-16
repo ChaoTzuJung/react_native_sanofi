@@ -6,15 +6,15 @@ import { AppContainer } from '@/screens';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 
-if (!__DEV__) {
-  global.console = {
-    info: () => {},
-    log: () => {},
-    warn: () => {},
-    debug: () => {},
-    error: () => {},
-  };
-}
+// if (!__DEV__) {
+//   global.console = {
+//     info: () => {},
+//     log: () => {},
+//     warn: () => {},
+//     debug: () => {},
+//     error: () => {},
+//   };
+// }
 
 const fetchFonts = async () => (
   await Font.loadAsync({

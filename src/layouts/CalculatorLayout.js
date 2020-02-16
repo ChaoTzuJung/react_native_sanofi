@@ -130,10 +130,10 @@ const CalculatorLayout = props => {
                 <SubTitle>EASI lesion severity atlas</SubTitle>
             </View>
             <SymptomProvider value={[symptomScore, updateSymptomScore, props.title]}>
-                <Accordion defaultIndex={null} onItemClick={console.log}>
+                <Accordion defaultIndex={null} onItemClick={console.log} type="item">
                     {
                         symptomData.map(symptom => (
-                            <AccordionItem 
+                            <AccordionItem
                                 key={symptom.id} 
                                 label={`${symptom.name}: ${symptomScore[symptom.name]}`}
                                 index={symptom.id}

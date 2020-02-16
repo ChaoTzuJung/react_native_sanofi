@@ -19,16 +19,18 @@ const Carousel = ({ data, navigation, render }) => {
   return (
     <Tabs defaultIndex="1" horizontal={true} onTabClick={(newIndex) => onTabClick(newIndex)} type='score'>
         {
-            data.map(item => (
-              <TabItem
-                key={item.id}
-                label={item.title}
-                index={item.id}
-                score={patient[item.title] ? patient[item.title].score : null}
-              >
-                {render(item)}
-              </TabItem>
-            ))
+            data.map(item => {
+              return (
+                <TabItem
+                  key={item.id}
+                  label={item.title}
+                  index={item.id}
+                  score={patient[item.title] ? patient[item.title].score : null}
+                >
+                  {render(item)}
+                </TabItem>
+              )
+            })
         }
     </Tabs>
   );

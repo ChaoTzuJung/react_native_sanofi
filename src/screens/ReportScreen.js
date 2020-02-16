@@ -51,7 +51,7 @@ const ReportScreen = ({ navigation }) => {
                 </TouchableOpacity>
                 <HorizonLine />
                 {handleLayout()}
-                {mailIsShow && <MailLayout />}
+                {mailIsShow && <MailLayout navigation={navigation} />}
             </ReportContainer> 
             <Footer />
         </ScrollView>

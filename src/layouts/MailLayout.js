@@ -1,6 +1,8 @@
-import React from 'react';
-import { View , Text, Slider, Dimensions, TouchableOpacity } from 'react-native';
+import React, { useEffect } from 'react';
+import { View , Text, Slider, Dimensions, TouchableOpacity, Alert } from 'react-native';
 import styled from 'styled-components/native';
+import uuidv4 from 'uuid/v4';
+import { usePatient } from 'models/patient';
 import CustomText from 'components/Common/CustomText';
 import Input from 'components/Common/Input';
 import CloseIcon from 'assets/close.svg';
@@ -9,23 +11,77 @@ const MailLayout = props => {
     const [name, setName] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [isOnCheck, setChecking] = React.useState(false);
+    const [showValidMessage, setShowValidMessage] = React.useState(false);
     const [users, setUsers] = React.useState([]);
     const InputNameEl = React.useRef(null);
     const InputMailEl = React.useRef(null);
-
-    const addUser = () => {
-        setUsers([...users, {name, email}]);
-        InputNameEl.current.clearInput();
-        InputMailEl.current.clearInput();
-        setName('');
-        setEmail('');
-    };
-    const deleteUser = email => {
-        const result = users.filter(user => user.email !== email);
-        setUsers([...result]);
+    const [,{ resetPatientData }] = usePatient();
+    const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/gm
+    const addUser = type => {
+        setChecking(true);
+        // 狀況ㄧ: 直接 Submit tag 而且input目前為空
+        if(type === 'submit' && users.length > 0 && email == '') {
+            setChecking(false);
+            showDialog();
+        // 狀況二: 沒有tag且不知道要按下 Add recipient，就直接 submit
+        } else if(type === 'submit' && users.length <= 0 && email.match(emailRegex)) {
+            setUsers([...users, {name, email, id: uuidv4()}]);
+            InputNameEl.current.clearInput();
+            InputMailEl.current.clearInput();
+            setName('');
+            setEmail('');
+            setChecking(false);
+            showDialog();
+        } else if(type === 'submit' && users.length > 0 && email.match(emailRegex)) {
+            // 狀況三: 有tag且input有email同時submit input跟tag的值
+            setUsers([...users, {name, email, id: uuidv4()}]);
+            InputNameEl.current.clearInput();
+            InputMailEl.current.clearInput();
+            setName('');
+            setEmail('');
+            setChecking(false);
+            showDialog();
+        } else if(type === 'add' && email.match(emailRegex)) {
+            // 狀況四: 直接 Add recipient 而且input目前為空 or 有tag 而且 input有值想一起送出
+            setUsers([...users, {name, email, id: uuidv4()}]);
+            InputNameEl.current.clearInput();
+            InputMailEl.current.clearInput();
+            setName('');
+            setEmail('');
+            setChecking(false);
+        } else {
+            setShowValidMessage(true)
+        }
     }
 
+    const deleteUser = id => {
+        const result = users.filter(user => user.id !== id);
+        setUsers([...result]);
+    };
 
+    const backToHome = () => {
+        resetPatientData();
+        props.navigation.popToTop();
+    };
+
+    const showDialog = () => {
+        setShowValidMessage(false);
+        console.log(`Pass data to back-end.`);
+        console.log(`Loading`);
+        console.log(`Clear tag(users)`);
+        console.log(`Show Dialog`);
+        Alert.alert(
+            'Reloading this page will lose your data.',
+            'Are you sure you want to start the next calculation?',
+            [
+                {text: 'Next Calculation', onPress: () => backToHome()},
+                {text: 'Stay on this Page', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+            ],
+            {cancelable: false},
+        );
+    }
+
+    const handleMailSubmit = () => addUser('submit');
 
     return (
         <MailContainer>
@@ -33,28 +89,27 @@ const MailLayout = props => {
             <Section> 
                 <CustomText size="h6" color="#333" value="Your Name: " style={{ marginBottom: 10 }} />
                 <Input
-                    invalid={name.length <= 0 && isOnCheck}
                     onInputChange={(value) => setName(value)}
                     style={{ marginBottom: 20 }}
                     ref={InputNameEl}
                 />
                 <CustomText size="h6" color="#333" value="Email Address: " style={{ marginBottom: 10 }} />
                 <Input
-                    invalid={name.length <= 0 && isOnCheck}
+                    invalid={showValidMessage && isOnCheck}
                     onInputChange={(value) => setEmail(value)}
-                    style={{ marginBottom: 20 }}
+                    style={showValidMessage && isOnCheck ? { marginBottom: 0 } : { marginBottom: 20 }}
                     ref={InputMailEl}
                 />
                 {users && users.map((user, idx) => (
                     <Tag key={`${user.email} - ${idx}`}>
                         <CustomText size="h7" color="#000" value={user.name ? `${user.name}, ${user.email}` : user.email} style={{ marginRight: 11 }} />
-                        <TouchableOpacity onPress={() => deleteUser(user.email)}><CloseIcon /></TouchableOpacity>
+                        <TouchableOpacity onPress={() => deleteUser(user.id)}><CloseIcon /></TouchableOpacity>
                     </Tag>
                 ))}
-                <AddRecipient onPress={addUser}>
+                <AddRecipient onPress={() => addUser('add')}>
                     <CustomText size="h7" color="#000" value="+ add recipient" />
                 </AddRecipient>
-                <Button onPress={() => console.log('Submit')}>
+                <Button onPress={() => handleMailSubmit()}>
                     <CustomText size="h6" color="#fff" value="Submit" />
                 </Button>
             </Section>

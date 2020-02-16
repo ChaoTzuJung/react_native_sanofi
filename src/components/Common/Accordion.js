@@ -47,8 +47,8 @@ const Accordion = (props) => {
 
     return (
         <View>
-            {items && items.map(({ props }) => renderItem(props))}
-            {cards && cards.map(({ props }) => renderCard(props))}
+            {items && props.type === 'item' && items.map(({ props }) => renderItem(props))}
+            {cards && props.type === 'card' && cards.map(({ props }) => renderCard(props))}
         </View>
     );
 }

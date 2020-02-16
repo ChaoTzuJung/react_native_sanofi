@@ -9,28 +9,27 @@ import QuestionIcon from 'assets/question.svg';
 
 const bodyLabel = ['Head & Neck', 'Upper extremities', 'Trunk', 'Lower extremities'];
 const igaLabel = ['0 - Clear', '1 - Almost Clear', '2 - Mild', '3 - Moderate', '4 - Severe'];
-const { width: screenWidth } = Dimensions.get("window");
 
 const ResultLayout = props => {
     const [{ patient }, { setPatientIGA, setPatientBSA }] = usePatient();
     const [IGA, setIGA] = useState(null);
-    const [sliderValue, setSliderValue] = useState(0);
-    const [BSA, setBSA] = useState(patient.BSA);
+    const [BSA, setBSA] = useState(0);
+    const [slideValue, changeSlideValue] = useState(0);
 
+    // NOTE: ResultLayout 只會在Calculator Screen render 實作第一次的 componentDidMount，切換Calculator 與 Result 的 Layout是不會重新render的
     useEffect(() => {
-        setSliderValue(patient.BSA);
+        setBSA(patient.BSA); // 負責把值給store
+        changeSlideValue(patient.BSA); // 負責顯示畫面的值
     }, [patient.BSA])
 
-    const onRadioChange = id => {
-        console.log(id);
-        setIGA(id);
-        setPatientIGA(id);
-    }
-    const onSlidingComplete = val => setBSA(val);
-    const onValueChange = val => setSliderValue(Math.floor(val));
+
+    const onRadioChange = id => setIGA(id);
+    const onValueChange = val => changeSlideValue(Math.floor(val));
+
     const navigateToPatientScreen = () => {
         if(IGA === null) return alert('Please fill in IGA field!');
         setPatientBSA(BSA);
+        setPatientIGA(IGA);
         props.navigation.navigate('Patient');
     }
 
@@ -59,7 +58,7 @@ const ResultLayout = props => {
             <IGASection>
                 <Title>
                     <CustomText size="h6" color="#333" value="IGA ( Investigator Global Assessment)" style={{ marginRight: 16 }} />
-                    <TouchableOpacity onPress={() => navigation.navigate('TableModal')}>
+                    <TouchableOpacity onPress={() => props.navigation.navigate('TableModal')}>
                         <QuestionIcon />
                     </TouchableOpacity>
                 </Title>
@@ -81,7 +80,7 @@ const ResultLayout = props => {
                 {IGA === null && <Alert value="*Required fields." style={{ marginTop: 8 }} />}
             </IGASection>
             <BSASection>
-                <CustomText size="h6" color="#333" value={`BSA（Body Surface Area）: ${sliderValue}％`} style={{ marginBottom: 14 }} />
+                <CustomText size="h6" color="#333" value={`BSA（Body Surface Area）: ${slideValue}％`} style={{ marginBottom: 14 }} />
                 <SliderLabels>
                     <CustomText font="normal" size="h7" color="#333" value="0%"  />
                     <CustomText font="normal" size="h7" color="#333" value="25%" />
@@ -92,8 +91,7 @@ const ResultLayout = props => {
                 <Slider
                     maximumValue={100}
                     onValueChange={onValueChange}
-                    onSlidingComplete={onSlidingComplete}
-                    value={sliderValue}
+                    value={slideValue}
                     thumbTintColor="#525ca3"
                     minimumTrackTintColor="#eeeeee"
                     maximumTrackTintColor="#eeeeee"

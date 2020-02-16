@@ -2,7 +2,7 @@ import React, { Fragment, useState, forwardRef, useImperativeHandle } from 'reac
 import styled from 'styled-components/native';
 import Alert from 'components/Common/Alert';
 
-const Input = forwardRef(({ invalid = false, style, onInputChange, onInputSubmit}, ref) => {
+const Input = forwardRef(({ invalid = false, style, onInputChange, onInputSubmit }, ref) => {
     const [text, setText] = useState('');
 
     const handleInputChange = val => {
@@ -14,7 +14,8 @@ const Input = forwardRef(({ invalid = false, style, onInputChange, onInputSubmit
 
     useImperativeHandle(ref, () => {
         return {
-            clearInput: clearInput
+            clearInput: clearInput,
+            setText: setText
         };
     });
 
@@ -28,7 +29,7 @@ const Input = forwardRef(({ invalid = false, style, onInputChange, onInputSubmit
                 value={text}
                 style={style}
             />
-            {invalid && <Alert value="*Required fields." style={{ marginTop: 8 }} />}
+            {invalid && <Alert value="*Required fields." style={{ marginTop: 8, marginBottom: 8 }} />}
         </Fragment>
     )
 });

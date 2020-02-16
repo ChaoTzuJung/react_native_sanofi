@@ -3,6 +3,87 @@ import { useRedux } from 'utils/hooks/redux';
 import moment from 'moment';
 import uuidv4 from 'uuid/v4';
 
+const initialState = {
+    patientId: '',
+    patientName: '',
+    reportDate: '',
+    age: '',
+    gender: '',
+    interpretation: '',
+    EASI: 0,
+    BSA: 0,
+    IGA: null,
+    'Head & Neck': {
+        id: '1',
+        color: '#f0dd00',
+        area: {
+            areaScore: null,
+            areaPercent: null,
+        },
+        symptom: {
+            Erythema: '0',
+            'Edema / papulation': '0',
+            Excoriation: '0',
+            Lichenification: '0',
+        },
+        completed: false,
+        score: 0,
+    },
+    'Upper extremities': {
+        id: '2',
+        color: '#00a590',
+        area: {
+            areaScore: null,
+            areaPercent: null,
+        },
+        symptom: {
+            Erythema: '0',
+            'Edema / papulation': '0',
+            Excoriation: '0',
+            Lichenification: '0',
+        },
+        completed: false,
+        score: 0,
+    },
+    'Trunk': {
+        id: '3',
+        color: '#fbba00',
+        area: {
+            areaScore: null,
+            areaPercent: null,
+        },
+        symptom: {
+            Erythema: '0',
+            'Edema / papulation': '0',
+            Excoriation: '0',
+            Lichenification: '0',
+        },
+        completed: false,
+        score: 0,
+    },
+    'Lower extremities': {
+        id: '4',
+        color: '#bcbc1c',
+        area: {
+            areaScore: null,
+            areaPercent: null,
+        },
+        symptom: {
+            Erythema: '0',
+            'Edema / papulation': '0',
+            Excoriation: '0',
+            Lichenification: '0',
+        },
+        completed: false,
+        score: 0,
+    },
+    'Result': {
+        id: '5',
+        completed: false,
+        score: null,
+    }
+};
+
 export const setPatientArea = createAction('SET_PATIENT_AREA', ({ areaScore, areaPercent }) => async (dispatch, getState) => {
     const { route } = getState();
 
@@ -104,7 +185,7 @@ export const setPatientIGA = createAction('SET_PATIENT_IGA', id => async (dispat
 });
 
 export const setPatientBSA = createAction('SET_PATIENT_BSA', val => async (dispatch, getState) => {
-    const BSA = val.toFixed(0);
+    const BSA = Math.floor(val);
 
     return new Promise((resolve, reject) => {
         resolve({ BSA })
@@ -114,7 +195,7 @@ export const setPatientBSA = createAction('SET_PATIENT_BSA', val => async (dispa
     })
 });
 
-export const setPatientInfomation = createAction('SET_PATIENT_INFOMATION', data => async (dispatch, getState) => {
+export const setPatientInformation = createAction('SET_PATIENT_INFORMATION', data => async (dispatch, getState) => {
     const personal = {
         patientId: uuidv4(),
         patientName: data.name,
@@ -124,11 +205,13 @@ export const setPatientInfomation = createAction('SET_PATIENT_INFOMATION', data 
     };
     return new Promise((resolve, reject) => {
         resolve(personal)
-        reject("[Action] Dispatch setPatientInfomation Fail !!")
+        reject("[Action] Dispatch setPatientInformation Fail !!")
 
         return personal;
     })
 });
+
+export const resetPatientData = createAction('RESET_PATIENT_DATA');
 
 const reducer = {
 	patient: handleActions(
@@ -183,7 +266,7 @@ const reducer = {
                 ...state,
                 BSA: action.payload.BSA,
             }),
-            SET_PATIENT_INFOMATION_FULFILLED: (state, action) => ({
+            SET_PATIENT_INFORMATION_FULFILLED: (state, action) => ({
                 ...state,
                 patientId: action.payload.patientId,
                 patientName: action.payload.patientName,
@@ -191,87 +274,9 @@ const reducer = {
                 age: action.payload.age,
                 gender: action.payload.gender,
             }),
+            RESET_PATIENT_DATA: () => initialState,
 		},
-        {
-            patientId: '',
-            patientName: '',
-            reportDate: '',
-            age: '',
-            gender: '',
-            interpretation: '',
-            EASI: 0,
-            BSA: 0,
-            IGA: null,
-            'Head & Neck': {
-                id: '1',
-                color: '#f0dd00',
-                area: {
-                    areaScore: null,
-                    areaPercent: null,
-                },
-                symptom: {
-                    Erythema: '0',
-                    'Edema / papulation': '0',
-                    Excoriation: '0',
-                    Lichenification: '0',
-                },
-                completed: false,
-                score: 0,
-            },
-            'Upper extremities': {
-                id: '2',
-                color: '#00a590',
-                area: {
-                    areaScore: null,
-                    areaPercent: null,
-                },
-                symptom: {
-                    Erythema: '0',
-                    'Edema / papulation': '0',
-                    Excoriation: '0',
-                    Lichenification: '0',
-                },
-                completed: false,
-                score: 0,
-            },
-            'Trunk': {
-                id: '3',
-                color: '#fbba00',
-                area: {
-                    areaScore: null,
-                    areaPercent: null,
-                },
-                symptom: {
-                    Erythema: '0',
-                    'Edema / papulation': '0',
-                    Excoriation: '0',
-                    Lichenification: '0',
-                },
-                completed: false,
-                score: 0,
-            },
-            'Lower extremities': {
-                id: '4',
-                color: '#bcbc1c',
-                area: {
-                    areaScore: null,
-                    areaPercent: null,
-                },
-                symptom: {
-                    Erythema: '0',
-                    'Edema / papulation': '0',
-                    Excoriation: '0',
-                    Lichenification: '0',
-                },
-                completed: false,
-                score: 0,
-            },
-            'Result': {
-                id: '5',
-                completed: false,
-                score: null,
-            }
-        }
+        initialState
 	),
 };
 
@@ -289,7 +294,8 @@ export const usePatient = () => useRedux(
         calculatorResult,
         setPatientIGA,
         setPatientBSA,
-        setPatientInfomation
+        setPatientInformation,
+        resetPatientData
     }
 );
 

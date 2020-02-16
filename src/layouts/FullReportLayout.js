@@ -23,10 +23,10 @@ const FullReportLayout = props => {
         const { symptom,area } = patient[body];
         return {
             'Redness/Erythema': symptom.Erythema,
-            'Edema/Papulation': symptom.Erythema,
-            'Scratching/Excoriation': symptom.Erythema,
-            'Lichenification': symptom.Erythema,
-            'Region score': `${area.areaScore}(${area.areaPercent})`,
+            'Edema/Papulation': symptom['Edema / papulation'],
+            'Scratching/Excoriation': symptom.Excoriation,
+            'Lichenification': symptom.Lichenification,
+            'Region score': `${area.areaScore}(${area.areaPercent}%)`,
         }
     }
 
@@ -45,7 +45,7 @@ const FullReportLayout = props => {
                     </Row>
                 ))}
             </Section>
-            <Accordion defaultIndex={null} onItemClick={console.log}>
+            <Accordion defaultIndex={null} onItemClick={console.log} type="card">
                 {
                     cards.map((card, idx) => (
                         <Card
@@ -54,12 +54,15 @@ const FullReportLayout = props => {
                             label={card}
                             color={patient[card].color}
                         >
-                            {Object.entries(CARD_MAP(card)).map((array, idx) => (
+                            {Object.entries(CARD_MAP(card)).map((array, idx) => {
+                                const value = array[0] === 'Region score' ? array[1] : SCORE_MAP[array[1]];
+                                return (
                                 <CardRow key={`${array[1]} - ${idx}`}>
                                     <CustomText font="normal" size="h7" color="#66757d" style={{ lineHeight: 22, paddingRight: 24, marginBottom: 4 }} value={`${array[0]}:`} />
-                                    <CustomText font="normal" size="h7" color="#000000" style={{ lineHeight: 22, paddingRight: 24 }} value={SCORE_MAP[array[1]]} />
+                                    <CustomText font="normal" size="h7" color="#000000" style={{ lineHeight: 22, paddingRight: 24 }} value={value} />
                                 </CardRow>
-                            ))}
+                                )
+                            })}
                         </Card>
                     ))
                 }
