@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "sanofi_easiscore_react_native",
+    "name": "Sanofi Easiscore",
     "description": "This project is really great.",
-    "slug": "sanofi_easiscore_react_native",
-    "privacy": "public",
+    "slug": "sanofi-easiscore",
+    "privacy": "privacy",
     "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
