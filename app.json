@@ -3,7 +3,7 @@
     "name": "Sanofi Easiscore",
     "description": "This project is really great.",
     "slug": "sanofi-easiscore",
-    "privacy": "privacy",
+    "privacy": "unlisted",
     "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
