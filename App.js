@@ -23,6 +23,7 @@ const fetchFonts = async () => (
     'ITCAvantGardeProBold': require('assets/fonts/ITCAvantGardePro-Bold.otf'),
     'ITCAvantGardeProBkItalic': require('assets/fonts/ITCAvantGardePro-Bk-italic.otf'),
     'ITCAvantGardeProBoldItalic': require('assets/fonts/ITCAvantGardePro-Bold-italic.otf'),
+    'Arial': require('assets/fonts/Arial.ttf'),
   })
 );
 

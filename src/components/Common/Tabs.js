@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, Platform } from 'react-native';
 import styled from 'styled-components/native';
 import { usePatient } from 'models/patient';
 import Alert from 'components/Common/Alert';
@@ -8,6 +8,7 @@ import CheckedMainIcon from 'assets/checked-main.svg';
 import { symptomImage } from 'utils/resources/static';
 import { SCORE_MAP } from 'utils/resources/static';
 
+const IS_ANDROID = Platform.OS === 'android';
 const TAB_MAP = {
     1: 'Head & Neck',
     2: 'Upper extremities',
@@ -183,6 +184,7 @@ const TabItem = styled.TouchableOpacity`
     height: auto;
     height: auto;
     background: white;
+    elevation: ${props => props.focus ? 4 : 2};
     ${props => handleShadow(props.focus)};
 `;
 
