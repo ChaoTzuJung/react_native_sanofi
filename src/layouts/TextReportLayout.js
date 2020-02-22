@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View , Text, Slider, Dimensions, TouchableOpacity } from 'react-native';
+import { View , Text } from 'react-native';
 import styled from 'styled-components/native';
 import { usePatient } from 'models/patient';
 import CustomText from 'components/Common/CustomText';

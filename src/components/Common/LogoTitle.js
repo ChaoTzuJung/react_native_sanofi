@@ -1,24 +1,27 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import styled from 'styled-components/native';
 import Logo from 'assets/logo.svg';
 import SubLogo from 'assets/sub-logo.svg';
+const IS_ANDROID = Platform.OS === 'android';
 
 const LogoTitle = () => (
-    <HeaderContainer>
+    <HeaderContainer isAndroid={IS_ANDROID}>
         <Logo />
         <HorizonLine />
         <SubLogo />
     </HeaderContainer>
 );
 
+// padding好像有錯？ 16px 0 16px 20;
 const HeaderContainer = styled.View`
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
+    align-items: ${props => props.isAndroid ? 'flex-start' : 'center'};
 	width: 100%;
 	height: auto;
-	padding: 16px 0 20px 0;
+    padding: ${props => props.isAndroid ? '16px 0' : '16px 0 20px 0'};
 	background-color: ${props => props.theme.white};
 `;
 

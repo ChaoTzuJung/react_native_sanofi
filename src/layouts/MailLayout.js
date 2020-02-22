@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View , Text, Slider, Dimensions, TouchableOpacity, Alert } from 'react-native';
+import { View , Text, Dimensions, TouchableOpacity, Alert } from 'react-native';
 import styled from 'styled-components/native';
 import uuidv4 from 'uuid/v4';
 import { usePatient } from 'models/patient';

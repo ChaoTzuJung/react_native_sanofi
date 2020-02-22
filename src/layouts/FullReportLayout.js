@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View , Text, Slider, Dimensions, TouchableOpacity } from 'react-native';
+import { View , Text, Dimensions, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 import { usePatient } from 'models/patient';
 import Accordion from 'components/Common/Accordion';
@@ -45,7 +45,7 @@ const FullReportLayout = props => {
                     </Row>
                 ))}
             </Section>
-            <Accordion defaultIndex={null} onItemClick={console.log} type="card">
+            <Accordion defaultIndex={null} type="card">
                 {
                     cards.map((card, idx) => (
                         <Card

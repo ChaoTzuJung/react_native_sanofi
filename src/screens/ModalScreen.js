@@ -21,11 +21,11 @@ const ModalScreen = ({ navigation }) => {
 
     return (
         <ModalContainer>
-            <CloseButton onPress={() => navigation.goBack()}>
+            <CloseButton isAndroid={IS_ANDROID} onPress={() => navigation.goBack()}>
                 <CloseIcon fill={"#FFF"} />
             </CloseButton>
             <ScreenTitle>{ModalTitle}</ScreenTitle>
-            <Tabs defaultIndex={`${id + 1}`} onTabClick={console.log} type="image">
+            <Tabs defaultIndex={`${id + 1}`} type="image">
                 {
                     symptomData.map(symptom => (
                         <TabItem
@@ -73,7 +73,7 @@ const CloseButton = styled.TouchableOpacity`
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 40px;
+    top: ${props => props.isAndroid ? 0 : 40};
     right: 0;
     width: 40px;
     height: 40px;

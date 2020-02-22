@@ -34,6 +34,7 @@ const CardWrapper = styled.View`
     height: ${props => props.isCollapsed ? '86px' : 'auto'};
     background-color: #fff;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    elevation: 2;
 `
 
 const CardButton = styled.TouchableOpacity`

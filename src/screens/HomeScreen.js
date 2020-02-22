@@ -24,7 +24,7 @@ const HomeScreen = ({ navigation }) => (
         </Banner>
         <Section>
             <Heading>Click START to begin EASI score calculation.</Heading>
-            <Tabs defaultIndex="1" onTabClick={console.log} type='bodys'>
+            <Tabs defaultIndex="1" type='bodys'>
                 <TabItem label="Head & Neck" index="1" color="yellow">
                     {
                         bodyData['Head & Neck'].map(item => (

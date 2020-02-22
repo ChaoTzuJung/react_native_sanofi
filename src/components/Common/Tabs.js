@@ -189,7 +189,7 @@ const TabItem = styled.TouchableOpacity`
 `;
 
 const TabMenuItem = styled(TabItem)`
-    width: 157px;
+    width: 42%;
     height: 52px;
     margin-right: ${props => props.index % 2 ? '21px' : 0 };
     margin-bottom: 10px;
