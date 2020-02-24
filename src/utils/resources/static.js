@@ -153,10 +153,10 @@ export const symptomData = [
         name: 'Erythema',
         score: 0,
         data: [
-            {label: 'None', score: 0, image: symptomImage['Erythema'][0][0], info: null},
-            {label: 'Mild', score: 1, image: symptomImage['Erythema'][1][0], info: 'Faintly detectable, pink'},
-            {label: 'Moderate', score: 2, image: symptomImage['Erythema'][2][0], info: 'Clearly distinguishable dull red'},
-            {label: 'Severe', score: 3, image: symptomImage['Erythema'][3][0], info: 'Deep dark or fiery bright red'},
+            {name: 'Erythema', label: 'None', score: 0, image: symptomImage['Erythema'][0][0], info: null},
+            {name: 'Erythema', label: 'Mild', score: 1, image: symptomImage['Erythema'][1][0], info: 'Faintly detectable, pink'},
+            {name: 'Erythema', label: 'Moderate', score: 2, image: symptomImage['Erythema'][2][0], info: 'Clearly distinguishable dull red'},
+            {name: 'Erythema', label: 'Severe', score: 3, image: symptomImage['Erythema'][3][0], info: 'Deep dark or fiery bright red'},
         ],
     },
     {
@@ -164,10 +164,10 @@ export const symptomData = [
         name: 'Edema / papulation',
         score: 0,
         data: [
-            {label: 'None', score: 0, image: symptomImage['Edema / papulation'][0][0], info: null},
-            {label: 'Mild', score: 1, image: symptomImage['Edema / papulation'][1][0], info: 'Barely perceptible elevation'},
-            {label: 'Moderate', score: 2, image: symptomImage['Edema / papulation'][2][0], info: 'Clearly perceptible elevation but not prominent'},
-            {label: 'Severe', score: 3, image: symptomImage['Edema / papulation'][3][0], info: 'Prominent elevation'},
+            {name: 'Edema / papulation', label: 'None', score: 0, image: symptomImage['Edema / papulation'][0][0], info: null},
+            {name: 'Edema / papulation', label: 'Mild', score: 1, image: symptomImage['Edema / papulation'][1][0], info: 'Barely perceptible elevation'},
+            {name: 'Edema / papulation', label: 'Moderate', score: 2, image: symptomImage['Edema / papulation'][2][0], info: 'Clearly perceptible elevation but not prominent'},
+            {name: 'Edema / papulation', label: 'Severe', score: 3, image: symptomImage['Edema / papulation'][3][0], info: 'Prominent elevation'},
         ],
     },
     {
@@ -175,10 +175,10 @@ export const symptomData = [
         name: 'Excoriation',
         score: 0,
         data: [
-            {label: 'None', score: 0, image: symptomImage['Excoriation'][0][0], info: null},
-            {label: 'Mild', score: 1, image: symptomImage['Excoriation'][1][0], info: 'Scant'},
-            {label: 'Moderate', score: 2, image: symptomImage['Excoriation'][2][0], info: 'Many superficial and/or some deep excoriations'},
-            {label: 'Severe', score: 3, image: symptomImage['Excoriation'][3][0], info: 'Extensive superficial and/or many deep excoriations'},
+            {name: 'Excoriation', label: 'None', score: 0, image: symptomImage['Excoriation'][0][0], info: null},
+            {name: 'Excoriation', label: 'Mild', score: 1, image: symptomImage['Excoriation'][1][0], info: 'Scant'},
+            {name: 'Excoriation', label: 'Moderate', score: 2, image: symptomImage['Excoriation'][2][0], info: 'Many superficial and/or some deep excoriations'},
+            {name: 'Excoriation', label: 'Severe', score: 3, image: symptomImage['Excoriation'][3][0], info: 'Extensive superficial and/or many deep excoriations'},
         ],
     },
     {
@@ -186,10 +186,10 @@ export const symptomData = [
         name: 'Lichenification',
         score: 0,
         data: [
-            {label: 'None', score: 0, image: symptomImage['Lichenification'][0][0], info: null },
-            {label: 'Mild', score: 1, image: symptomImage['Lichenification'][1][0], info: 'Scant'},
-            {label: 'Moderate', score: 2, image: symptomImage['Lichenification'][2][0], info: 'Thickened skin with exaggerated markings and/or some prurigo nodules'},
-            {label: 'Severe', score: 3, image: symptomImage['Lichenification'][3][0], info: 'Prominent thickening, exaggerated markings creating deep furrows and/or many prurigo nodules'},
+            {name: 'Lichenification', label: 'None', score: 0, image: symptomImage['Lichenification'][0][0], info: null },
+            {name: 'Lichenification', label: 'Mild', score: 1, image: symptomImage['Lichenification'][1][0], info: 'Scant'},
+            {name: 'Lichenification', label: 'Moderate', score: 2, image: symptomImage['Lichenification'][2][0], info: 'Thickened skin with exaggerated markings and/or some prurigo nodules'},
+            {name: 'Lichenification', label: 'Severe', score: 3, image: symptomImage['Lichenification'][3][0], info: 'Prominent thickening, exaggerated markings creating deep furrows and/or many prurigo nodules'},
         ],
     }
 ];

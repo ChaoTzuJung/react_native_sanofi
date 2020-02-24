@@ -12,11 +12,11 @@ let composeEnhancers = compose;
 
 if (process.env.NODE_ENV !== 'production' && !IS_ANDROID) {
 	const { createLogger } = require('redux-logger');
-	middlewares.push(
-		createLogger({
-			predicate: (_, action) => action.type !== 'SCROLL_WINDOW' && action.type !== 'RESIZE_WINDOW',
-		}),
-	);
+	// middlewares.push(
+	// 	createLogger({
+	// 		predicate: (_, action) => action.type !== 'SCROLL_WINDOW' && action.type !== 'RESIZE_WINDOW',
+	// 	}),
+	// );
 	composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 	// const composeEnhancers = composeWithDevTools({ realtime: true, port: 8000 })|| compose;
 }

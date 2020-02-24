@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
-import { View , Text } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View , Text, Dimensions } from 'react-native';
 import styled from 'styled-components/native';
+import Carousel from 'react-native-snap-carousel';
 import { usePatient } from 'models/patient';
 import { SymptomProvider } from '../context/SymptomContext';
 import CustomText from 'components/Common/CustomText';
 import Accordion from 'components/Common/Accordion';
 import AccordionItem from 'components/Common/AccordionItem';
-import RadioCardList from 'components/Common/RadioCardList';
+import RadioCard from 'components/Common/RadioCard';
 
 import { symptomData } from 'utils/resources/static';
 import NeckFront from 'assets/neck-front.svg'; 
@@ -17,6 +18,17 @@ import BodyFront from 'assets/body-front.svg';
 import BodyBack from 'assets/body-back.svg';
 import LegFront from 'assets/leg-front.svg'; 
 import LegBack from 'assets/leg-back.svg';
+
+const renderCard = ({item, index}) => (
+    <RadioCard
+        key={item.info}
+        name={item.name}
+        index={index}
+        label={`${item.label}: ${item.score}`}
+        image={item.image}
+        info={item.info}
+    />
+);
 
 const SvgComponent = ({ name }) => {
     let Component = <Text>沒圖片</Text>;
@@ -43,15 +55,18 @@ const SvgComponent = ({ name }) => {
 };
 
 const CalculatorLayout = props => {
-    const [text, setText] = React.useState('');
-    const [areaPoint , setAreaPoint ] = React.useState(0);
-    const [symptomScore, updateSymptomScore] = React.useState({
+    const CarouselEl = useRef(null);
+    const [text, setText] = useState('');
+    const [areaPoint , setAreaPoint ] = useState(0);
+    const [symptomScore, updateSymptomScore] = useState({
         Erythema: '0',
         'Edema / papulation': '0',
         Excoriation: '0',
         Lichenification: '0',
     });
-
+    const [slider1ActiveSlide, setSlider1ActiveSlide] = React.useState(0);
+    const { width: screenWidth } = Dimensions.get("window");
+    
     // 當Back To Home 再回到 Calculator 後仍能 sync store data
     useEffect(() => {
         const percent = patient[props.title].area.areaPercent;
@@ -138,7 +153,19 @@ const CalculatorLayout = props => {
                                 label={`${symptom.name}: ${symptomScore[symptom.name]}`}
                                 index={symptom.id}
                             >
-                                <RadioCardList listData={symptom.data} name={symptom.name} />
+                                <Carousel
+                                    ref={CarouselEl}
+                                    data={symptom.data}
+                                    renderItem={renderCard}
+                                    sliderWidth={screenWidth}
+                                    itemWidth={300}
+                                    loop={false}
+                                    inactiveSlideOpacity={1}
+                                    inactiveSlideScale={1}
+                                    activeSlideAlignment="start"
+                                    slideStyle={{ marginRight: 15 }}
+                                    onSnapToItem={(index) => setSlider1ActiveSlide(index)}
+                                />
                             </AccordionItem>
                         ))
                     }
