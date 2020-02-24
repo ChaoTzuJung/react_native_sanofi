@@ -17,6 +17,29 @@ export const SCORE_MAP = {
     3: 'Severe: 3',
 };
 
+export const TAB_MAP = {
+    1: 'Head & Neck',
+    2: 'Upper extremities',
+    3: 'Trunk',
+    4: 'Lower extremities',
+    5: 'Result',
+}
+
+export const SYMPTOM_MAP = {
+    0: 'Clear_Skin',
+    1: 'Mid',
+    2: 'Moderate',
+    3: 'Severe',
+}
+
+export const IGA_MAP = {
+    0: '0 - Clear',
+    1: '1 - Almost Clear',
+    2: '2 - Mild',
+    3: '3 - Moderate',
+    4: '4 - Severe'
+};
+
 export const symptomImage = {
     'Erythema': [
         [   

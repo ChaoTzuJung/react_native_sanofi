@@ -1,12 +1,11 @@
 import React from 'react';
-import { View, Text, Dimensions, Platform, ScrollView, Image } from 'react-native';
+import { View, Text, Dimensions, ScrollView, Image } from 'react-native';
 import styled from 'styled-components/native';
 import Carousel from 'react-native-snap-carousel';
 import Tabs from 'components/Common/Tabs';
 import CloseIcon from 'assets/close2.svg';
 import { symptomData, symptomImage } from 'utils/resources/static';
-
-const IS_ANDROID = Platform.OS === 'android';
+import { isIphoneHaveNotch } from '../../config/device';
 const SLIDER_1_FIRST_ITEM = 1;
 
 const TabItem = props => <View {...props} />;
@@ -21,7 +20,7 @@ const ModalScreen = ({ navigation }) => {
 
     return (
         <ModalContainer>
-            <CloseButton isAndroid={IS_ANDROID} onPress={() => navigation.goBack()}>
+            <CloseButton isAndroid={!isIphoneHaveNotch} onPress={() => navigation.goBack()}>
                 <CloseIcon fill={"#FFF"} />
             </CloseButton>
             <ScreenTitle>{ModalTitle}</ScreenTitle>
@@ -73,7 +72,7 @@ const CloseButton = styled.TouchableOpacity`
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: ${props => props.isAndroid ? 0 : 40};
+    top: ${props => props.isAndroid ? 0 : '40px'};
     right: 0;
     width: 40px;
     height: 40px;

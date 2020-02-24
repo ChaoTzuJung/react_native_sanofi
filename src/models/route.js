@@ -1,23 +1,15 @@
 import { createAction, handleActions } from 'redux-actions';
 import { useRedux } from 'utils/hooks/redux';
 import { calculatorResult } from './patient';
-
-const QUERY_MAP = {
-    1: 'Head & Neck',
-    2: 'Upper extremities',
-    3: 'Trunk',
-    4: 'Lower extremities',
-    5: 'Result',
-}
-
+import { TAB_MAP } from 'utils/resources/static';
 
 export const setRouteChange = createAction('SET_ROUTE_CHANGE', async param => async (dispatch, getState) => {
     if(param.query === '5') dispatch(calculatorResult());
     return new Promise((resolve, reject) => {
-        resolve({ path: param.path, query: QUERY_MAP[param.query] })
+        resolve({ path: param.path, query: TAB_MAP[param.query] })
         reject("[Action] Dispatch setRouteChange Fail !!")
 
-        return { path: param.path, query: QUERY_MAP[param.query] };
+        return { path: param.path, query: TAB_MAP[param.query] };
     })
 });
 

@@ -1,28 +1,12 @@
 import React, { useState } from 'react';
-import { View, Image, Platform } from 'react-native';
+import { View, Image } from 'react-native';
 import styled from 'styled-components/native';
 import { usePatient } from 'models/patient';
 import Alert from 'components/Common/Alert';
 import CustomText from 'components/Common/CustomText';
 import CheckedMainIcon from 'assets/checked-main.svg';
 import { symptomImage } from 'utils/resources/static';
-import { SCORE_MAP } from 'utils/resources/static';
-
-const IS_ANDROID = Platform.OS === 'android';
-const TAB_MAP = {
-    1: 'Head & Neck',
-    2: 'Upper extremities',
-    3: 'Trunk',
-    4: 'Lower extremities',
-    5: 'Result',
-}
-
-const SYMPTOM_MAP = {
-    0: 'Clear_Skin',
-    1: 'Mid',
-    2: 'Moderate',
-    3: 'Severe',
-}
+import { SCORE_MAP, TAB_MAP, SYMPTOM_MAP } from 'utils/resources/static';
 
 const TabImage = ({ items, bindIndex, changeTab }) => (
     <View>

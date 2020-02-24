@@ -2,6 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { useRedux } from 'utils/hooks/redux';
 import moment from 'moment';
 import uuidv4 from 'uuid/v4';
+import { IGA_MAP } from 'utils/resources/static';
 
 const initialState = {
     patientId: '',
@@ -168,14 +169,6 @@ export const calculatorResult = createAction('CALCULATOR_RESULT', () => async (d
 });
 
 export const setPatientIGA = createAction('SET_PATIENT_IGA', id => async (dispatch, getState) => {
-    const IGA_MAP = {
-        0: '0 - Clear',
-        1: '1 - Almost Clear',
-        2: '2 - Mild',
-        3: '3 - Moderate',
-        4: '4 - Severe'
-    };
-
     return new Promise((resolve, reject) => {
         resolve({ IGA: IGA_MAP[id] })
         reject("[Action] Dispatch calculatorResult Fail !!")
