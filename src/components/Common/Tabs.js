@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { View, Image } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, Image, Dimensions } from 'react-native';
+import Carousel from 'react-native-snap-carousel';
 import styled from 'styled-components/native';
 import { usePatient } from 'models/patient';
 import Alert from 'components/Common/Alert';
@@ -8,7 +9,7 @@ import CheckedMainIcon from 'assets/checked-main.svg';
 import { symptomImage } from 'utils/resources/static';
 import { SCORE_MAP, TAB_MAP, SYMPTOM_MAP } from 'utils/resources/static';
 
-const TabImage = ({ items, bindIndex, changeTab }) => (
+export const TabImage = ({ items, bindIndex, changeTab }) => (
     <View>
         <TabMenu>
             {items.map(({ props: { index, label } }) => {
@@ -31,9 +32,9 @@ const TabImage = ({ items, bindIndex, changeTab }) => (
             ))}
         </TabView>
     </View>
-)
+);
 
-const TabScore = ({ items, showAlert, bindIndex, changeTab }) => {
+export const TabScore = ({ items, showAlert, bindIndex, changeTab }) => {
     const [{ patient }] = usePatient();
     return (
         <View>
@@ -75,7 +76,7 @@ const TabScore = ({ items, showAlert, bindIndex, changeTab }) => {
     )
 };
 
-const TabBody = ({ items, bindIndex, changeTab }) => (
+export const TabBody = ({ items, bindIndex, changeTab }) => (
     <View>
         <TabMenu>
             {items.map(({ props: { index, label, color } }) => (
@@ -100,8 +101,74 @@ const TabBody = ({ items, bindIndex, changeTab }) => (
             ))}
         </TabView>
     </View>
-)
+);
 
+export const TabCarousel = ({ items, showAlert, bindIndex, changeTab }) => {
+    const CarouselEl = useRef(null);
+    const [{ patient }] = usePatient();
+    const [slider1ActiveSlide, setSlider1ActiveSlide] = React.useState(0);
+    const { width: screenWidth } = Dimensions.get("window");
+    const renderTab = ({ item, idx }) => {
+        const { index, label, score } = item.props;
+        const tabCompleted = patient[TAB_MAP[index]].completed;
+        const isValid = !tabCompleted && index !== '5' && showAlert;
+
+        return (
+            <TabMenuHorizontalItem
+                focus={bindIndex === index}
+                index={index}
+                key={label}
+                valid={isValid}
+                onPress={() => changeTab(index)} 
+            >
+                {tabCompleted ?
+                    <CheckedMainIcon width={16} height={16} style={{ marginBottom: 8 }}/> 
+                    : (
+                        <CircleOrder focus={bindIndex === index}>
+                            <CustomText color={bindIndex === index ? "#525ca3" : "#7c7c7c"} value={index} style={{ fontSize: 10 }} />
+                        </CircleOrder>
+                    )
+                }
+                <CustomText size="h7" color={bindIndex === index ? "#000000" : "#a77f7f"} value={label} style={{ marginBottom: 6 }} />
+                {score !== null && <CustomText size="h6" color={bindIndex === index ? "#000000" : "rgba(0, 0, 0, 0.5)"} value={`Score: ${score}`} />}
+                {isValid && <Alert value="*Required fields." style={{ marginTop: 20 }} />}
+            </TabMenuHorizontalItem>
+        )
+    };
+
+    return (
+        <View>
+            <Carousel
+                ref={CarouselEl}
+                data={items}
+                renderItem={renderTab}
+                sliderWidth={screenWidth}
+                itemWidth={144}
+                loop={false}
+                inactiveSlideOpacity={1}
+                inactiveSlideScale={1}
+                activeSlideAlignment="start"
+                slideStyle={{ marginRight: 10 }}
+                containerCustomStyle={{ paddingLeft: 20 }}
+                contentContainerCustomStyle={{ 
+                    marginTop: 20,
+                    marginBottom: 40,
+                    width: 144 * 5 + 70,
+                }}
+                onSnapToItem={(index) => setSlider1ActiveSlide(index)}
+            />
+            <TabView>
+                {items.map(({ props }) => (
+                    <TabViewItem
+                        {...props}
+                        key={props.index}
+                        show={bindIndex === props.index}
+                    />
+                ))}
+            </TabView>
+        </View>
+    )
+};
 const Tabs = props => {
     const [bindIndex, setBindIndex] = React.useState(props.defaultIndex);
     const [showAlert, setShowAlert] = React.useState(false);
@@ -128,6 +195,7 @@ const Tabs = props => {
     if(props.type === 'bodys') return <TabBody items={items} bindIndex={bindIndex} changeTab={changeTab} />
     if(props.type === 'score') return <TabScore items={items} bindIndex={bindIndex} changeTab={changeTab} showAlert={showAlert} />
     if(props.type === 'image') return <TabImage items={items} bindIndex={bindIndex} changeTab={changeTab} />
+    if(props.type === 'carousel') return <TabCarousel items={items} bindIndex={bindIndex} changeTab={changeTab} showAlert={showAlert} />
 }
 
 const handleShadow = focus => focus ? `boxShadow: 0 2px 5px rgba(0, 0, 0, 0.2)` : `boxShadow: 0 2px 5px rgba(0, 0, 0, 0.1)`;
@@ -184,12 +252,13 @@ const TabMenuItem = styled(TabItem)`
 `
 
 const TabMenuHorizontalItem = styled(TabItem)`
-    width: 145px;
+    /* width: 145px;
     height: 90px;
     margin-top: 20px;
     margin-right: 8px;
     margin-bottom: 40px;
-    margin-left:  8px;
+    margin-left:  8px; */
+    height: 86px;
     padding: 8px;
     border-width: 1px;
     border-color: ${props => props.valid ? props.theme.warn : 'transparent'};
