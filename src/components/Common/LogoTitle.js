@@ -19,7 +19,7 @@ const HeaderContainer = styled.View`
     align-items: ${props => props.isAndroid ? 'flex-start' : 'center'};
 	width: 100%;
 	height: auto;
-    padding: ${props => props.isAndroid ? '16px 0' : '16px 0 16px 20px'};
+    padding: ${props => props.isAndroid ? '16px 0' : '16px 0 20px 0'};
 	background-color: ${props => props.theme.white};
 `;
 

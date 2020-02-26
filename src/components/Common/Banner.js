@@ -11,7 +11,7 @@ const Banner = ({ children }) => (
 const styles = StyleSheet.create({
     bannerStyle: {
         width: '100%',
-        height: 245,
+        height: 293,
     },
 });
 
