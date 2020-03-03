@@ -119,6 +119,7 @@ const BannerHeader = styled.Text`
 `;
 
 const BannerText = styled.Text`
+    width: 295px;
     margin-top: 5px;
     margin-bottom: 20px;
     color: #ffffff;
