@@ -6,8 +6,9 @@ import LogoTitle from 'components/Common/LogoTitle';
 import Banner from 'components/Common/Banner';
 import Button from 'components/Common/Button';
 import BodySection from 'components/Common/BodySection';
-import Tabs from 'components/Common/Tabs';
+import CustomText from 'components/Common/CustomText';
 import Footer from 'components/Common/Footer';
+import Tabs from 'components/Common/Tabs';
 
 import { bodyData } from 'utils/resources/static';
 
@@ -16,14 +17,23 @@ const TabItem = props => <View {...props} />;
 const HomeScreen = ({ navigation }) => (
     <ScrollView>
         <Banner>
-            <View style={{ paddingVertical: 20, paddingHorizontal: 40 }}>
+            <View style={{ paddingVertical: 20, paddingHorizontal: 20 }}>
                 <BannerHeader>EASI<Text style={{ fontFamily: 'ITCAvantGardeProMd' }}>score</Text></BannerHeader>
                 <BannerText>Quickly calculate the eczema area and severity index to determine atopic dermatitis severity.</BannerText>
-                <Button size="large" navigation={navigation}>Start</Button>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                    <View>
+                        <Button size="medium" color="main" navigation={navigation} path="Calculator">Tutorial Version</Button>
+                        <CustomText size="h7" color='#fff' value="Step by step guide" style={{ width: 157, textAlign: 'center', marginTop: 8, lineHeight: 22 }}/>
+                    </View>
+                    <View>
+                        <Button size="medium" color="second" navigation={navigation}>Quick Version</Button>
+                        <CustomText size="h7"color='#fff' value="Faster calculation" style={{ width: 157, textAlign: 'center', marginTop: 8, lineHeight: 22 }} />
+                    </View>
+                </View>
             </View>
         </Banner>
         <Section>
-            <Heading>Click START to begin EASI score calculation.</Heading>
+            <Heading numberOfLines={1}>Click START to begin EASI score calculation.</Heading>
             <Tabs defaultIndex="1" type='bodys'>
                 <TabItem label="Head & Neck" index="1" color="yellow">
                     {
@@ -133,7 +143,6 @@ const Heading = styled.Text`
     color: #000000;
     font-family: 'ITCAvantGardeProBk';
     font-size: 16px;
-    line-height: 24px;
     opacity: 0.5;
 `;
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, ImageBackground, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
-const Button = ({ children, onClick, size, navigation }) => {
+const Button = ({ children, onClick, size, color, navigation, path }) => {
     const [coords, setCoords] = React.useState({ x: -1, y: -1 });
     const [isRippling, setIsRippling] = React.useState(false);
 
@@ -25,13 +25,15 @@ const Button = ({ children, onClick, size, navigation }) => {
 
     return (
         <ButtonContainer
+            size={size}
+            color={color}
             onPress={e => {
                 // var rect = e.target.getBoundingClientRect();
                 // var x = e.clientX - rect.left;
                 // var y = e.clientY - rect.top;
                 // setCoords({ x, y });
                 onClick && onClick(e);
-                navigation.navigate('Calculator');
+                if(path) navigation.navigate(path);
             }}
         >
             {isRippling ? (
@@ -54,6 +56,9 @@ const handleSize = size => {
         return 'width: 295px; height: 50px;'
     }
 
+    if(size === 'medium') {
+        return 'width: 160px; height: 50px;'
+    }
 
     return 'width: 295px; height: 50px;'
 }
@@ -65,7 +70,7 @@ const ButtonContainer = styled.TouchableOpacity`
     position: relative;
     margin: auto;
     text-align: center;
-    background: ${props => props.theme.main};
+    background: ${props => props.color !== 'main' ? props.theme.second : props.theme.main};
     border-radius: 32px;
     color: #ffffff;
     overflow: hidden;
