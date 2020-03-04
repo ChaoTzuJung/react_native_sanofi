@@ -252,12 +252,13 @@ const TabMenuItem = styled(TabItem)`
 `
 
 const TabMenuHorizontalItem = styled(TabItem)`
-    /* width: 145px;
+    width: 145px;
     height: 90px;
     margin-top: 20px;
     margin-right: 8px;
     margin-bottom: 40px;
-    margin-left:  8px; */
+    margin-left:  8px;
+    /* 以上拿掉註解，因為用不到 TabCarousel */
     height: 86px;
     padding: 8px;
     border-width: 1px;

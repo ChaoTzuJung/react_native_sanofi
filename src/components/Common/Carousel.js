@@ -17,7 +17,7 @@ const Carousel = ({ data, navigation, render }) => {
   }
 
   return (
-    <Tabs defaultIndex="1" horizontal={true} onTabClick={(newIndex) => onTabClick(newIndex)} type='carousel'>
+    <Tabs defaultIndex="1" horizontal={true} onTabClick={(newIndex) => onTabClick(newIndex)} type='score'>
         {
             data.map(item => {
               return (
