@@ -39,7 +39,7 @@ const store = configureStore({});
 const App = () => {
   const [assetsLoaded, setAssetsLoaded] = useState(false);
   useEffect(() => {
-    await registerForPushNotificationsAsync();
+    registerForPushNotificationsAsync();
   }, [])
   if (!assetsLoaded) {
     return (
