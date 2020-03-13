@@ -13,6 +13,7 @@
   "dependencies": {
     "expo": "^36.0.0",
     "expo-font": "~8.0.0",
+    "firebase": "^7.11.0",
     "moment": "^2.24.0",
     "path": "^0.12.7",
     "react": "16.9.0",

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "873819253197",
+    "firebase_url": "https://pwa-native.firebaseio.com",
+    "project_id": "pwa-native",
+    "storage_bucket": "pwa-native.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:873819253197:android:41533f3b03f4513a1afc84",
+        "android_client_info": {
+          "package_name": "com.sanofi.react_native"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "873819253197-57lb5a7ci7onb8a6kir6s3isgrd40d7n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyOnWOza56BkaCFpZs73FQj7kSP2U3sfw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "873819253197-57lb5a7ci7onb8a6kir6s3isgrd40d7n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

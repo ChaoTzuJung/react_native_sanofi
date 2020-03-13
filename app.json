@@ -9,6 +9,10 @@
       "ios",
       "android"
     ],
+    "android": {
+      "package": "com.sanofi.react_native",
+      "googleServicesFile": "./google-services.json"
+    },
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

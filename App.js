@@ -1,20 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { Provider } from 'react-redux';
 import configureStore from '@/store';
 import { AppContainer } from '@/screens';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
-
-// if (!__DEV__) {
-//   global.console = {
-//     info: () => {},
-//     log: () => {},
-//     warn: () => {},
-//     debug: () => {},
-//     error: () => {},
-//   };
-// }
+import { registerForPushNotificationsAsync } from 'utils/notification';
 
 const fetchFonts = async () => (
   await Font.loadAsync({
@@ -47,7 +38,9 @@ const store = configureStore({});
 
 const App = () => {
   const [assetsLoaded, setAssetsLoaded] = useState(false);
-
+  useEffect(() => {
+    await registerForPushNotificationsAsync();
+  }, [])
   if (!assetsLoaded) {
     return (
       <AppLoading
